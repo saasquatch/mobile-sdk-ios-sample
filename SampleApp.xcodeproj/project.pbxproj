@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		1FC576751C9C768200315955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC576741C9C768200315955 /* AppDelegate.swift */; };
-		1FC576771C9C768200315955 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC576761C9C768200315955 /* MasterViewController.swift */; };
-		1FC576791C9C768200315955 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC576781C9C768200315955 /* DetailViewController.swift */; };
 		1FC5767C1C9C768200315955 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FC5767A1C9C768200315955 /* Main.storyboard */; };
 		1FC5767E1C9C768200315955 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FC5767D1C9C768200315955 /* Assets.xcassets */; };
 		1FC576811C9C768200315955 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FC5767F1C9C768200315955 /* LaunchScreen.storyboard */; };
 		1FC5768C1C9C768300315955 /* SampleAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC5768B1C9C768300315955 /* SampleAppTests.swift */; };
 		1FC576971C9C768300315955 /* SampleAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC576961C9C768300315955 /* SampleAppUITests.swift */; };
+		1FC576A51C9C8B3900315955 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC576A41C9C8B3900315955 /* LoginViewController.swift */; };
+		1FC576A71C9C8B4800315955 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC576A61C9C8B4800315955 /* SignupViewController.swift */; };
+		1FC576A91C9C8B5800315955 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC576A81C9C8B5800315955 /* WelcomeViewController.swift */; };
+		1FD5A9151C9C962E0032CF23 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5A9141C9C962E0032CF23 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +39,6 @@
 /* Begin PBXFileReference section */
 		1FC576711C9C768200315955 /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FC576741C9C768200315955 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1FC576761C9C768200315955 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		1FC576781C9C768200315955 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		1FC5767B1C9C768200315955 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1FC5767D1C9C768200315955 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FC576801C9C768200315955 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +49,10 @@
 		1FC576921C9C768300315955 /* SampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FC576961C9C768300315955 /* SampleAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppUITests.swift; sourceTree = "<group>"; };
 		1FC576981C9C768300315955 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FC576A41C9C8B3900315955 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1FC576A61C9C8B4800315955 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		1FC576A81C9C8B5800315955 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		1FD5A9141C9C962E0032CF23 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +104,11 @@
 			isa = PBXGroup;
 			children = (
 				1FC576741C9C768200315955 /* AppDelegate.swift */,
-				1FC576761C9C768200315955 /* MasterViewController.swift */,
-				1FC576781C9C768200315955 /* DetailViewController.swift */,
 				1FC5767A1C9C768200315955 /* Main.storyboard */,
+				1FD5A9141C9C962E0032CF23 /* User.swift */,
+				1FC576A41C9C8B3900315955 /* LoginViewController.swift */,
+				1FC576A61C9C8B4800315955 /* SignupViewController.swift */,
+				1FC576A81C9C8B5800315955 /* WelcomeViewController.swift */,
 				1FC5767D1C9C768200315955 /* Assets.xcassets */,
 				1FC5767F1C9C768200315955 /* LaunchScreen.storyboard */,
 				1FC576821C9C768200315955 /* Info.plist */,
@@ -259,8 +265,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FC576791C9C768200315955 /* DetailViewController.swift in Sources */,
-				1FC576771C9C768200315955 /* MasterViewController.swift in Sources */,
+				1FC576A71C9C8B4800315955 /* SignupViewController.swift in Sources */,
+				1FC576A91C9C8B5800315955 /* WelcomeViewController.swift in Sources */,
+				1FC576A51C9C8B3900315955 /* LoginViewController.swift in Sources */,
+				1FD5A9151C9C962E0032CF23 /* User.swift in Sources */,
 				1FC576751C9C768200315955 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -486,6 +494,7 @@
 				1FC5769D1C9C768300315955 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1FC5769E1C9C768300315955 /* Build configuration list for PBXNativeTarget "SampleAppTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +503,7 @@
 				1FC576A01C9C768300315955 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1FC576A11C9C768300315955 /* Build configuration list for PBXNativeTarget "SampleAppUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +512,7 @@
 				1FC576A31C9C768300315955 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
