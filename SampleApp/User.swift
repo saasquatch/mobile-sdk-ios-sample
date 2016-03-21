@@ -12,10 +12,32 @@ class User: NSObject {
     
     static let sharedUser = User()
     
+    var secret: String?
+    var id: String?
+    var accountId: String?
     var firstName: String?
     var lastName: String?
     var email: String?
-    var referred: String?
     var referralCode: String?
+    var rewards: [String]?
     
+    func setValues(secret secret: String,
+        id: String,
+        accountId: String,
+        firstName: String,
+        lastName: String,
+        email: String,
+        referralCode: String) {
+            self.secret = secret
+            self.id = id
+            self.accountId = accountId
+            self.firstName = firstName
+            self.lastName = lastName
+            self.email = email
+            self.referralCode = referralCode
+    }
+    
+    func addRewardCode(reward: String) {
+        rewards?.append(reward)
+    }
 }
