@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import saasquatch
-import CryptoSwift
 
 class SignupViewController: UIViewController, UITextFieldDelegate {
     
@@ -21,6 +20,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var referralCodeField: UITextField!
     @IBOutlet var signupButton: UIButton!
     let user = User.sharedUser
+    let tenant = "SaaS"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,115 +47,140 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let lastName = lastNameField.text
         let email = emailField.text
         let password = passwordField.text
-        let passwordRepeat = passwordRepeatField.text
         let referralCode = referralCodeField.text
         
-        if (firstName == nil || firstName == "") {
-            firstNameField.layer.masksToBounds = true
-            firstNameField.layer.borderColor = UIColor.redColor().CGColor
-            firstNameField.layer.borderWidth = 1.0
-        } else if (lastName == nil || lastName == "") {
-            lastNameField.layer.masksToBounds = true
-            lastNameField.layer.borderColor = UIColor.redColor().CGColor
-            lastNameField.layer.borderWidth = 1.0
-        } else if (email == nil || email == "") {
-            emailField.layer.masksToBounds = true
-            emailField.layer.borderColor = UIColor.redColor().CGColor
-            emailField.layer.borderWidth = 1.0
-        } else if (password == nil || password == "") {
-            passwordField.layer.masksToBounds = true
-            passwordField.layer.borderColor = UIColor.redColor().CGColor
-            passwordField.layer.borderWidth = 1.0
-        } else if (passwordRepeat == nil || passwordRepeat == "") {
-            passwordRepeatField.layer.masksToBounds = true
-            passwordRepeatField.layer.borderColor = UIColor.redColor().CGColor
-            passwordRepeatField.layer.borderWidth = 1.0
-        } else if (referralCode == nil || referralCode == "") {
-            referralCodeField.layer.masksToBounds = true
-            referralCodeField.layer.borderColor = UIColor.redColor().CGColor
-            referralCodeField.layer.borderWidth = 1.0
-        } else if (password == passwordRepeat) {
-            let userData: [String: AnyObject] = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
-            let tenant = "SaaS"
-            guard let userId = user.id,
-                let accountId = user.accountId,
-                let secret = user.secret else {
-                    return
-            }
-            Saasquatch.registerUser(tenant: tenant,
-                userID: userId,
-                accountID: accountId,
-                userContext: userData,
-                completionHandler: {(userContext: AnyObject?, error: NSError?) in
-                    if (error != nil) {
-                        dispatch_async(dispatch_get_main_queue(), {
-                            // Something went wrong
-                            return
-                        })
-                    }
-                    Saasquatch.validateReferralCode(tenant: tenant, referralCode: referralCode!, secret: secret, completionHandler: {(referralCodeContext: AnyObject?, error: NSError?) in
-                        var rewardText = ""
-                        if (error != nil) {
-                            self.user.addRewardCode("DEFAULTREWARD")
-                            rewardText = "20$ off your next SaaS"
-                        } else {
-                            self.user.addRewardCode(referralCodeContext?["code"] as! String)
-                            rewardText = "\(referralCodeContext?["discountPercent"])% off your next SaaS"
-                        }
-                        Saasquatch.userByReferralCode(tenant: tenant, referralCode: referralCode!, secret: secret, completionHandler: {(userContext: AnyObject?, error: NSError?) in
-                            if (error != nil) {
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    let darkenView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height))
-                                    darkenView.backgroundColor = UIColor.blackColor()
-                                    darkenView.alpha = 0.8
-                                    self.view.addSubview(darkenView)
-                                    let alertView = ReferralView.instanceFromNib() as! ReferralView
-                                    alertView.center = darkenView.center
-                                    alertView.clipsToBounds = true
-                                    alertView.layer.cornerRadius = 5
-                                    alertView.rewardView.clipsToBounds = true
-                                    alertView.rewardView.layer.cornerRadius = 5
-                                    alertView.rewardView.layer.masksToBounds = false
-                                    alertView.rewardView.layer.shadowColor = UIColor.grayColor().CGColor
-                                    alertView.rewardView.layer.shadowOffset = CGSizeMake(5.0, 5.0)
-                                    alertView.rewardView.layer.shadowOpacity = 0.3
-                                    alertView.userLabel.text = "You've been referred by Default R."
-                                    alertView.rewardLabel.text = rewardText
-                                    
-                                    self.performSegueWithIdentifier("signupsegue", sender: sender)
-                                })
-                            }
-                            dispatch_async(dispatch_get_main_queue(), {
-                                let darkenView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height))
-                                darkenView.backgroundColor = UIColor.blackColor()
-                                darkenView.alpha = 0.8
-                                self.view.addSubview(darkenView)
-                                let alertView = ReferralView.instanceFromNib() as! ReferralView
-                                alertView.center = darkenView.center
-                                alertView.clipsToBounds = true
-                                alertView.layer.cornerRadius = 5
-                                alertView.rewardView.clipsToBounds = true
-                                alertView.rewardView.layer.cornerRadius = 5
-                                alertView.rewardView.layer.masksToBounds = false
-                                alertView.rewardView.layer.shadowColor = UIColor.grayColor().CGColor
-                                alertView.rewardView.layer.shadowOffset = CGSizeMake(5.0, 5.0)
-                                alertView.rewardView.layer.shadowOpacity = 0.3
-                                alertView.userLabel.text = "You've been referred by \(userContext!["firstName"]) \(userContext!["lastInitial"])."
-                                alertView.rewardLabel.text = rewardText
-                                
-                                self.performSegueWithIdentifier("signupsegue", sender: sender)
-                            })
-                        })
-                    })
-            })
-        } else { // passwords don't match
-            passwordField.layer.masksToBounds = true
-            passwordField.layer.borderColor = UIColor.redColor().CGColor
-            passwordField.layer.borderWidth = 1.0
-            passwordRepeatField.layer.masksToBounds = true
-            passwordRepeatField.layer.borderColor = UIColor.redColor().CGColor
-            passwordRepeatField.layer.borderWidth = 1.0
+        guard validateFields() else {
+            return
         }
+        
+        let userData: [String: AnyObject] = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
+        guard let userId = user.id,
+            let accountId = user.accountId,
+            let secret = user.secret else {
+                return
+        }
+        
+        // Register the user with Referral Saasquatch
+        Saasquatch.registerUser(tenant: tenant, userID: userId, accountID: accountId, userContext: userData,
+            completionHandler: {(userContext: AnyObject?, error: NSError?) in
+                
+                if error != nil {
+                    // Show an alert describing the error
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.showErrorAlert("Registration Error", message: error!.localizedDescription)
+                    })
+                    return
+                }
+                
+                // Validate the referral code
+                Saasquatch.validateReferralCode(tenant: self.tenant, referralCode: referralCode!, secret: secret,
+                    completionHandler: {(referralCodeContext: AnyObject?, error: NSError?) in
+                        
+                        if error != nil {
+                            var title: String
+                            var message: String
+                            if error!.code == 401 {
+                                // The secret was not the same as registered
+                                title = "Registration Error"
+                                message = error!.localizedDescription
+                            } else if error!.code == 404 {
+                                // The referral code was not found
+                                title = "Invalid Referral Code"
+                                message = "Please check your code and try again."
+                            } else {
+                                title = "Unknown error"
+                                message = error!.localizedDescription
+                            }
+                            self.showFieldError(self.referralCodeField)
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.showErrorAlert(title, message: message)
+                            })
+                            return
+                        }
+                        
+                        // Parse the returned context
+                        guard let code = referralCodeContext!["code"] as? String,
+                            let reward = referralCodeContext!["reward"] as? [String: AnyObject],
+                            let type = reward["type"] as? String else {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                                })
+                                return
+                        }
+                        
+                        // Parse the reward
+                        var rewardString: String
+                        if type == "PCT_DISCOUNT" {
+                            guard let percent = reward["discountPercent"] as? Int else {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                                })
+                                return
+                            }
+                            
+                            rewardString = "\(percent)% off your next SaaS"
+                            
+                        } else {
+                            guard let unit = reward["unit"] as? String else {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                                })
+                                return
+                            }
+                            
+                            if type == "FEATURE" {
+                                rewardString = "You get a \(unit)"
+                                
+                            } else {
+                                guard let credit = reward["credit"] as? Int else {
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                                    })
+                                    return
+                                }
+                                
+                                rewardString = "\(credit) \(unit) off your next SaaS"
+                            }
+                        }
+                        
+                        // Give user the new reward
+                        self.user.addReward(Reward(code: code, reward: rewardString))
+                        
+                        // Lookup the person that referred user
+                        Saasquatch.userByReferralCode(tenant: self.tenant, referralCode: referralCode!, secret: secret,
+                            completionHandler: {(userContext: AnyObject?, error: NSError?) in
+                                
+                                if error != nil {
+                                    if error!.code == 401 {
+                                        // The secret was not the same as registered
+                                        self.showErrorAlert("Registration Error", message: error!.localizedDescription)
+                                    } else if error!.code == 404 {
+                                        // The user associated with the referral code was not found
+                                        self.showErrorAlert("Invalid Referral Code", message: "Please check your code and try again")
+                                    }
+                                    return
+                                }
+                                
+                                // Parse the returned context
+                                guard let referrerFirstName = userContext?["firstName"] as? String,
+                                    let referrerLastName = userContext?["lastName"] as? String else {
+                                        dispatch_async(dispatch_get_main_queue(), {
+                                            self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                                        })
+                                        return
+                                }
+                                
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    // Popup showing the referrer and reward info, closing segues to the welcome screen
+                                    self.showPopup(referredBy: referrerFirstName, lastName: referrerLastName)
+                                })
+                        })
+                })
+        })
+    }
+    
+    func next() {
+        self.performSegueWithIdentifier("signupsegue", sender: self)
     }
     
     func createUser(firstName firstName: String, lastName: String, email: String, password: String) -> [String: AnyObject] {
@@ -163,7 +188,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let accountId = "000001"
         let locale = "en_US"
         let referralCode = "\(firstName.uppercaseString)\(lastName.uppercaseString)"
-        let secret = encryptPassword(password) as String
+        let secret = "038tr0810t8h1028th108102085180"
         
         user.setValues(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
         
@@ -181,10 +206,78 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         return result
     }
     
-    func encryptPassword(password: String) -> NSString {
-        let salted = "\(password)\(NSUUID().UUIDString)".dataUsingEncoding(NSUTF8StringEncoding)
-        let encrypted = try! salted!.encrypt(AES(key: "secret0key000000", iv:"0123456789012345"))
-        return NSString(data: encrypted, encoding: NSUTF8StringEncoding)!
+    func validateFields() -> Bool {
+        let firstName = firstNameField.text
+        let lastName = lastNameField.text
+        let email = emailField.text
+        let password = passwordField.text
+        let passwordRepeat = passwordRepeatField.text
+        let referralCode = referralCodeField.text
+        
+        var result = true
+        
+        if firstName == nil || firstName == "" {
+            showFieldError(firstNameField)
+            result = false
+        }
+        if lastName == nil || lastName == "" {
+            showFieldError(lastNameField)
+            result = false
+        }
+        if email == nil || email == "" {
+            showFieldError(emailField)
+            result = false
+        }
+        if password == nil || password == "" {
+            showFieldError(passwordField)
+            result = false
+        }
+        if passwordRepeat == nil || passwordRepeat == "" {
+            showFieldError(passwordRepeatField)
+            result = false
+        }
+        if referralCode == nil || referralCode == "" {
+            showFieldError(referralCodeField)
+            result = false
+        }
+        if password != passwordRepeat {
+            showFieldError(passwordField)
+            showFieldError(passwordRepeatField)
+            result = false
+        }
+        return result
+    }
+    
+    func showFieldError(field: UITextField) {
+        field.layer.masksToBounds = true
+        field.layer.borderColor = UIColor.redColor().CGColor
+        field.layer.borderWidth = 1.0
+    }
+    
+    func showPopup(referredBy firstName: String, lastName: String) {
+        let darkenView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height))
+        darkenView.backgroundColor = UIColor.blackColor()
+        darkenView.alpha = 0.8
+        self.view.addSubview(darkenView)
+        let alertView = ReferralView.instanceFromNib() as! ReferralView
+        alertView.center = darkenView.center
+        alertView.clipsToBounds = true
+        alertView.layer.cornerRadius = 5
+        alertView.rewardView.clipsToBounds = true
+        alertView.rewardView.layer.cornerRadius = 5
+        alertView.rewardView.layer.masksToBounds = false
+        alertView.rewardView.layer.shadowColor = UIColor.grayColor().CGColor
+        alertView.rewardView.layer.shadowOffset = CGSizeMake(5.0, 5.0)
+        alertView.rewardView.layer.shadowOpacity = 0.3
+        alertView.userLabel.text = "You've been referred by \(firstName) \(lastName)."
+        alertView.rewardLabel.text = self.user.rewards.first?.reward
+        alertView.closeButton.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
+        self.view.addSubview(alertView)
+    }
+    
+    func showErrorAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func dismissKeyboard() {

@@ -8,12 +8,15 @@
 
 import Foundation
 import UIKit
+import saasquatch
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
+    let user = User.sharedUser
+    let tenant = "SaaS"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +41,50 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let email = emailField.text
         let password = emailField.text
         
-        if (email == "demo" && password == "demo") {
-            // do login
-            self.performSegueWithIdentifier("loginsegue", sender: sender)
+        if (email == "bob" && password == "bob") {
+            
+            // Get Bob's info
+            let userId = "123456"
+            let accountId = "123456"
+            let secret = "038tr0810t8h1028th108102085180"
+            
+            // Lookup Bob with referral saasquatch
+            Saasquatch.user(tenant: tenant, userID: userId, accountID: accountId, secret: secret,
+                completionHandler: {(userContext: AnyObject?, error: NSError?) in
+                
+                    if error != nil {
+                        // Show an alert describing the error
+                        let alert = UIAlertController(title: "Login error", message: "Failed to login. Please try again", preferredStyle: .Alert)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        })
+                        return
+                    }
+                    
+                    // Parse the returned context
+                    guard let email = userContext!["email"] as? String,
+                        let firstName = userContext!["firstName"] as? String,
+                        let lastName = userContext!["lastName"] as? String,
+                        let referralCode = userContext!["referralCode"] as? String else {
+                            let alert = UIAlertController(title: "Login error", message: "Failed to login. Please try again", preferredStyle: .Alert)
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.presentViewController(alert, animated: true, completion: nil)
+                            })
+                            return
+                    }
+                    
+                    // Login Bob
+                    self.user.setValues(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
+                    
+                    // Bob has a reward he has not claimed
+                    self.user.addReward(Reward(code: "BOBTESTERSON", reward: "$20 off your next SaaS"))
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        // Segue on main thread after user login
+                        self.performSegueWithIdentifier("loginsegue", sender: sender)
+                    })
+            })
+            
         } else {
             self.performSegueWithIdentifier("signupsegue", sender: sender)
         }

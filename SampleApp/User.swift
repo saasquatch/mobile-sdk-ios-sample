@@ -12,14 +12,14 @@ class User: NSObject {
     
     static let sharedUser = User()
     
-    var secret: String?
-    var id: String?
-    var accountId: String?
-    var firstName: String?
-    var lastName: String?
-    var email: String?
-    var referralCode: String?
-    var rewards: [String]?
+    var secret: String!
+    var id: String!
+    var accountId: String!
+    var firstName: String!
+    var lastName: String!
+    var email: String!
+    var referralCode: String!
+    var rewards: [Reward]!
     
     func setValues(secret secret: String,
         id: String,
@@ -35,9 +35,22 @@ class User: NSObject {
             self.lastName = lastName
             self.email = email
             self.referralCode = referralCode
+            self.rewards = []
     }
     
-    func addRewardCode(reward: String) {
-        rewards?.append(reward)
+    func addReward(reward: Reward) {
+        rewards.append(reward)
+    }
+}
+
+class Reward: NSObject {
+    
+    var code: String?
+    var reward: String
+    
+    init(code: String?, reward: String) {
+        self.code = code
+        self.reward = reward
+        super.init()
     }
 }
