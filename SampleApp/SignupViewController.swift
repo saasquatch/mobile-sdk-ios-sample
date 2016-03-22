@@ -190,7 +190,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let referralCode = "\(firstName.uppercaseString)\(lastName.uppercaseString)"
         let secret = "038tr0810t8h1028th108102085180"
         
-        user.setValues(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
+        user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
         
         let result: [String: AnyObject] =
         ["secret": secret,

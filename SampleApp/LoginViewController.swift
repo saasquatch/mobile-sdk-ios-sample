@@ -74,7 +74,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     // Login Bob
-                    self.user.setValues(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
+                    self.user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
                     
                     // Bob has a reward he has not claimed
                     self.user.addReward(Reward(code: "BOBTESTERSON", reward: "$20 off your next SaaS"))

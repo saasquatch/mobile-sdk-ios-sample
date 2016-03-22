@@ -21,13 +21,7 @@ class User: NSObject {
     var referralCode: String!
     var rewards: [Reward]!
     
-    func setValues(secret secret: String,
-        id: String,
-        accountId: String,
-        firstName: String,
-        lastName: String,
-        email: String,
-        referralCode: String) {
+    func login(secret secret: String, id: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String) {
             self.secret = secret
             self.id = id
             self.accountId = accountId
