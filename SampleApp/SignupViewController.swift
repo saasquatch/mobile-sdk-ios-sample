@@ -232,10 +232,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             showFieldError(passwordField)
             result = false
         }
-        if passwordRepeat == nil || passwordRepeat == "" {
-            showFieldError(passwordRepeatField)
-            result = false
-        }
         if referralCode == nil || referralCode == "" {
             showFieldError(referralCodeField)
             result = false
