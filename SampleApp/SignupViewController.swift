@@ -53,7 +53,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        let userData: [String: AnyObject] = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
+        let userInfo: [String: AnyObject] = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
         guard let userId = user.id,
             let accountId = user.accountId,
             let secret = user.secret else {
@@ -61,7 +61,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         }
         
         // Register the user with Referral Saasquatch
-        Saasquatch.registerUser(tenant: tenant, userID: userId, accountID: accountId, userContext: userData,
+        Saasquatch.registerUser(tenant: tenant, userID: userId, accountID: accountId, userContext: userInfo,
             completionHandler: {(userContext: AnyObject?, error: NSError?) in
                 
                 if error != nil {
