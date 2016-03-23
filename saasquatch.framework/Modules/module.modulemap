@@ -1,0 +1,10 @@
+framework module saasquatch {
+  umbrella header "saasquatch.h"
+
+  export *
+  module * { export * }
+}
+
+module saasquatch.Swift {
+    header "saasquatch-Swift.h"
+}
