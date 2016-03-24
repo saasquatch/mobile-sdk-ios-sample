@@ -51,7 +51,7 @@ class WelcomeViewController: UIViewController {
         
         // Validate the code with referral saasquatch
         Saasquatch.validateReferralCode(referralCode, forTenant: tenant, withSecret: user.secret,
-            completionHandler: {(referralCodeContext: AnyObject?, error: NSError?) in
+            completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                 
                 if (error != nil) {
                     // Show an alert to the user describing the error
