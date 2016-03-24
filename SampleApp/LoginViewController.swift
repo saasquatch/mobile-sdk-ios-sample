@@ -50,7 +50,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             // Lookup Bob with referral saasquatch
             Saasquatch.userForTenant(tenant, withUserID: userId, withAccountID: accountId, withSecret: secret,
-                completionHandler: {(userContext: AnyObject?, error: NSError?) in
+                completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                 
                     if error != nil {
                         // Show an alert describing the error
@@ -62,10 +62,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     // Parse the returned context
-                    guard let email = userContext!["email"] as? String,
-                        let firstName = userContext!["firstName"] as? String,
-                        let lastName = userContext!["lastName"] as? String,
-                        let referralCode = userContext!["referralCode"] as? String else {
+                    guard let email = userInfo!["email"] as? String,
+                        let firstName = userInfo!["firstName"] as? String,
+                        let lastName = userInfo!["lastName"] as? String,
+                        let referralCode = userInfo!["referralCode"] as? String else {
                             let alert = UIAlertController(title: "Login error", message: "Failed to login. Please try again", preferredStyle: .Alert)
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.presentViewController(alert, animated: true, completion: nil)

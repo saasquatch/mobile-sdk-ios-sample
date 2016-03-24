@@ -62,7 +62,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         
         // Register the user with Referral Saasquatch
         Saasquatch.registerUserForTenant(tenant, withUserID: userId, withAccountID: accountId, withUserInfo: userInfo,
-            completionHandler: {(userContext: AnyObject?, error: NSError?) in
+            completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                 
                 if error != nil {
                     // Show an alert describing the error
@@ -74,7 +74,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 
                 // Validate the referral code
                 Saasquatch.validateReferralCode(referralCode!, forTenant: self.tenant, withSecret: secret,
-                    completionHandler: {(referralCodeContext: AnyObject?, error: NSError?) in
+                    completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                         
                         if error != nil {
                             var title: String
@@ -99,8 +99,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         }
                         
                         // Parse the returned context
-                        guard let code = referralCodeContext!["code"] as? String,
-                            let reward = referralCodeContext!["reward"] as? [String: AnyObject],
+                        guard let code = userInfo!["code"] as? String,
+                            let reward = userInfo!["reward"] as? [String: AnyObject],
                             let type = reward["type"] as? String else {
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
@@ -148,7 +148,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         
                         // Lookup the person that referred user
                         Saasquatch.userByReferralCode(referralCode!, forTenant: self.tenant, withSecret: secret,
-                            completionHandler: {(userContext: AnyObject?, error: NSError?) in
+                            completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                                 
                                 if error != nil {
                                     if error!.code == 401 {
@@ -162,8 +162,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                                 }
                                 
                                 // Parse the returned context
-                                guard let referrerFirstName = userContext?["firstName"] as? String,
-                                    let referrerLastName = userContext?["lastName"] as? String else {
+                                guard let referrerFirstName = userInfo?["firstName"] as? String,
+                                    let referrerLastName = userInfo?["lastName"] as? String else {
                                         dispatch_async(dispatch_get_main_queue(), {
                                             self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
                                         })
