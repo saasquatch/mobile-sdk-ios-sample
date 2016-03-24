@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F9D92EB1CA073EC00ED08C2 /* saasquatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9D92EA1CA073EC00ED08C2 /* saasquatch.framework */; };
+		1FABB21A1CA4594F001A265D /* saasquatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FABB2191CA4594F001A265D /* saasquatch.framework */; };
+		1FABB21B1CA45955001A265D /* saasquatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FABB2191CA4594F001A265D /* saasquatch.framework */; };
+		1FABB21C1CA45955001A265D /* saasquatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1FABB2191CA4594F001A265D /* saasquatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1FC576751C9C768200315955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC576741C9C768200315955 /* AppDelegate.swift */; };
 		1FC5767C1C9C768200315955 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FC5767A1C9C768200315955 /* Main.storyboard */; };
 		1FC5767E1C9C768200315955 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FC5767D1C9C768200315955 /* Assets.xcassets */; };
@@ -20,8 +22,6 @@
 		1FD5A9151C9C962E0032CF23 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5A9141C9C962E0032CF23 /* User.swift */; };
 		1FD5A91B1C9CCC710032CF23 /* ReferralView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD5A91A1C9CCC710032CF23 /* ReferralView.xib */; };
 		1FD5A91D1C9CCFC40032CF23 /* ReferralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5A91C1C9CCFC40032CF23 /* ReferralView.swift */; };
-		1FE0AA111CA076BC00DCD98B /* saasquatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9D92EA1CA073EC00ED08C2 /* saasquatch.framework */; };
-		1FE0AA121CA076BC00DCD98B /* saasquatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9D92EA1CA073EC00ED08C2 /* saasquatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1FE0AA121CA076BC00DCD98B /* saasquatch.framework in Embed Frameworks */,
+				1FABB21C1CA45955001A265D /* saasquatch.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,7 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F9D92EA1CA073EC00ED08C2 /* saasquatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = saasquatch.framework; sourceTree = "<group>"; };
+		1FABB2191CA4594F001A265D /* saasquatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = saasquatch.framework; sourceTree = "<group>"; };
 		1FC576711C9C768200315955 /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FC576741C9C768200315955 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FC5767B1C9C768200315955 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -82,8 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F9D92EB1CA073EC00ED08C2 /* saasquatch.framework in Frameworks */,
-				1FE0AA111CA076BC00DCD98B /* saasquatch.framework in Frameworks */,
+				1FABB21B1CA45955001A265D /* saasquatch.framework in Frameworks */,
+				1FABB21A1CA4594F001A265D /* saasquatch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,7 +111,6 @@
 				1FC5768A1C9C768300315955 /* SampleAppTests */,
 				1FC576951C9C768300315955 /* SampleAppUITests */,
 				1FC576721C9C768200315955 /* Products */,
-				1F9D92EA1CA073EC00ED08C2 /* saasquatch.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -139,6 +138,7 @@
 				1FC5767D1C9C768200315955 /* Assets.xcassets */,
 				1FC5767F1C9C768200315955 /* LaunchScreen.storyboard */,
 				1FC576821C9C768200315955 /* Info.plist */,
+				1FABB2191CA4594F001A265D /* saasquatch.framework */,
 			);
 			path = SampleApp;
 			sourceTree = "<group>";
@@ -442,6 +442,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SampleApp",
 				);
 				INFOPLIST_FILE = SampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
@@ -458,6 +459,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SampleApp",
 				);
 				INFOPLIST_FILE = SampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;

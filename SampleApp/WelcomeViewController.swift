@@ -32,7 +32,7 @@ class WelcomeViewController: UIViewController {
         claimButton.layer.cornerRadius = 5
         claimButton.clipsToBounds = true
         
-        welcomeLabel.text = "Welcome \(user.firstName)"
+        welcomeLabel.text = "Welcome, \(user.firstName)"
         if !user.rewards.isEmpty {
             rewardLabel.text = user.rewards.first?.reward
         } else {
@@ -50,7 +50,7 @@ class WelcomeViewController: UIViewController {
         let referralCode = user.rewards.first!.code!
         
         // Validate the code with referral saasquatch
-        Saasquatch.validateReferralCode(tenant: tenant, referralCode: referralCode, secret: user.secret,
+        Saasquatch.validateReferralCode(referralCode, forTenant: tenant, withSecret: user.secret,
             completionHandler: {(referralCodeContext: AnyObject?, error: NSError?) in
                 
                 if (error != nil) {
@@ -59,7 +59,7 @@ class WelcomeViewController: UIViewController {
                     var message: String
                     if error!.code == 401 {
                         // The secret was not the same as registered
-                        title = "Server Error"
+                        title = "Error"
                         message = "Failed to apply referral code"
                     } else if error!.code == 404 {
                         // The referral code was not found
@@ -77,7 +77,8 @@ class WelcomeViewController: UIViewController {
                 }
                 
                 // Apply the referral code to the user's account
-                Saasquatch.applyReferralCode(tenant: "SaaS", userID: self.user.id, accountID: self.user.accountId, referralCode: referralCode, secret: self.user.secret)
+                Saasquatch.applyReferralCode(referralCode, forTenant: self.tenant, toUserID: self.user.id, toAccountID: self.user.accountId, withSecret: self.user.secret)
+                
                 dispatch_async(dispatch_get_main_queue(), {
                     let alert = UIAlertController(title: "Success!", message: "Your discount has been applied", preferredStyle: .Alert)
                     self.presentViewController(alert, animated: true, completion: nil)

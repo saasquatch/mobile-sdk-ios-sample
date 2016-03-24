@@ -49,7 +49,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             let secret = "038tr0810t8h1028th108102085180"
             
             // Lookup Bob with referral saasquatch
-            Saasquatch.user(tenant: tenant, userID: userId, accountID: accountId, secret: secret,
+            Saasquatch.userForTenant(tenant, withUserID: userId, withAccountID: accountId, withSecret: secret,
                 completionHandler: {(userContext: AnyObject?, error: NSError?) in
                 
                     if error != nil {

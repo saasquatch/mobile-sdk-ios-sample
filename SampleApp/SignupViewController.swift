@@ -61,7 +61,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         }
         
         // Register the user with Referral Saasquatch
-        Saasquatch.registerUser(tenant: tenant, userID: userId, accountID: accountId, userContext: userInfo,
+        Saasquatch.registerUserForTenant(tenant, withUserID: userId, withAccountID: accountId, withUserInfo: userInfo,
             completionHandler: {(userContext: AnyObject?, error: NSError?) in
                 
                 if error != nil {
@@ -73,7 +73,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 }
                 
                 // Validate the referral code
-                Saasquatch.validateReferralCode(tenant: self.tenant, referralCode: referralCode!, secret: secret,
+                Saasquatch.validateReferralCode(referralCode!, forTenant: self.tenant, withSecret: secret,
                     completionHandler: {(referralCodeContext: AnyObject?, error: NSError?) in
                         
                         if error != nil {
@@ -147,7 +147,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         self.user.addReward(Reward(code: code, reward: rewardString))
                         
                         // Lookup the person that referred user
-                        Saasquatch.userByReferralCode(tenant: self.tenant, referralCode: referralCode!, secret: secret,
+                        Saasquatch.userByReferralCode(referralCode!, forTenant: self.tenant, withSecret: secret,
                             completionHandler: {(userContext: AnyObject?, error: NSError?) in
                                 
                                 if error != nil {

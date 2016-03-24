@@ -14,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		AQRELdkFh7lp/6YtEeArPJ8CmPo=
+		2bJi/wcoksL7LR7H4yfe4ZWt7AY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Modules/saasquatch.swiftmodule/arm.swiftmodule</key>
 		<data>
-		r/GbOZT3TpP5A15yfSZ7TYQfkXQ=
+		3SyTwlKmXfLTNd0aV4oJTOBqybM=
 		</data>
 		<key>Modules/saasquatch.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -34,39 +34,88 @@
 		</data>
 		<key>Modules/saasquatch.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		2PSSgIC4emwbku6yg3Y5sR+ENyk=
+		Na+z6Iyf6Fw6io/sUIyI+SplW/s=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
 		<key>Headers/saasquatch-Swift.h</key>
-		<data>
-		taoblxbTOrmm7dPyJP4WCs36yt0=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			taoblxbTOrmm7dPyJP4WCs36yt0=
+			</data>
+			<key>hash2</key>
+			<data>
+			09wI4M28PSN0UfutlNgpGfHZWthlrU5KGihpBTkzNbQ=
+			</data>
+		</dict>
 		<key>Headers/saasquatch.h</key>
-		<data>
-		xUNiuZ9vJbSt37ESZawQV/K8yOg=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			xUNiuZ9vJbSt37ESZawQV/K8yOg=
+			</data>
+			<key>hash2</key>
+			<data>
+			/KvI1zwOjEp7bLTMvOWaIgVFXCDGUIHUzXGoY4yRKGI=
+			</data>
+		</dict>
 		<key>Modules/module.modulemap</key>
-		<data>
-		4Bfc7MW7vIfwiMjCPvvL6IIkZRE=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			4Bfc7MW7vIfwiMjCPvvL6IIkZRE=
+			</data>
+			<key>hash2</key>
+			<data>
+			D2Qz27j2fLlrvAMt7MPM1r57Cw6y/krXzgCy/ttvXuc=
+			</data>
+		</dict>
 		<key>Modules/saasquatch.swiftmodule/arm.swiftdoc</key>
-		<data>
-		z9gym0lF2avZftPcPwlmxaitbzc=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			z9gym0lF2avZftPcPwlmxaitbzc=
+			</data>
+			<key>hash2</key>
+			<data>
+			pWnqZSzmMBHjpNgzr2lcNRxDt8gkTlIiCCbhfoU5b2Q=
+			</data>
+		</dict>
 		<key>Modules/saasquatch.swiftmodule/arm.swiftmodule</key>
-		<data>
-		r/GbOZT3TpP5A15yfSZ7TYQfkXQ=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			3SyTwlKmXfLTNd0aV4oJTOBqybM=
+			</data>
+			<key>hash2</key>
+			<data>
+			jGI4q60EWwNwYdDsP/4d340BcIBr6V3wuq0AWSUr8Q4=
+			</data>
+		</dict>
 		<key>Modules/saasquatch.swiftmodule/arm64.swiftdoc</key>
-		<data>
-		fIpxOKAjR9plS6cvnn3Uj8k/7Lc=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			fIpxOKAjR9plS6cvnn3Uj8k/7Lc=
+			</data>
+			<key>hash2</key>
+			<data>
+			mYH/tR/92g59CNBX0/NtA5wleKSWJD+f1aYVSEFd1gk=
+			</data>
+		</dict>
 		<key>Modules/saasquatch.swiftmodule/arm64.swiftmodule</key>
-		<data>
-		2PSSgIC4emwbku6yg3Y5sR+ENyk=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			Na+z6Iyf6Fw6io/sUIyI+SplW/s=
+			</data>
+			<key>hash2</key>
+			<data>
+			ol/5WQiDco856Oyhu/9Lsa77R+p6w8pFfp2MGG1EsKw=
+			</data>
+		</dict>
 	</dict>
 	<key>rules</key>
 	<dict>
