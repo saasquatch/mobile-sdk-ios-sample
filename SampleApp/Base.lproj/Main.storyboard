@@ -139,7 +139,7 @@
         <!--Signup View Controller-->
         <scene sceneID="Gg6-oE-MWc">
             <objects>
-                <viewController id="f1U-ve-APv" customClass="SignupViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signup" useStoryboardIdentifierAsRestorationIdentifier="YES" id="f1U-ve-APv" customClass="SignupViewController" customModule="SampleApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WHC-LB-PWs"/>
                         <viewControllerLayoutGuide type="bottom" id="xC2-rn-mRg"/>
@@ -408,6 +408,6 @@
         <image name="saaslogo" width="120" height="126"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uNm-0z-ax8"/>
+        <segue reference="Rfl-6F-sAf"/>
     </inferredMetricsTieBreakers>
 </document>

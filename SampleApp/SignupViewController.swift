@@ -20,7 +20,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var referralCodeField: UITextField!
     @IBOutlet var signupButton: UIButton!
     let user = User.sharedUser
-    let tenant = "SaaS"
+    let tenant = "acunqvcfij2l4"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +36,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         
         signupButton.layer.cornerRadius = 5
         signupButton.clipsToBounds = true
+        
+        if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            if let referralCode = delegate.referralCode {
+                referralCodeField.text = referralCode
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -184,11 +190,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     func createUser(firstName firstName: String, lastName: String, email: String, password: String) -> [String: AnyObject] {
-        let userId = "000001"
-        let accountId = "000001"
+        let userId = "000003"
+        let accountId = "000003"
         let locale = "en_US"
         let referralCode = "\(firstName.uppercaseString)\(lastName.uppercaseString)"
-        let secret = "038tr0810t8h1028th108102085180"
+        let secret = "0123456789abcd"
         
         user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
         
@@ -201,7 +207,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             "lastName": lastName,
             "locale": locale,
             "referralCode": referralCode,
-            "imageURL": ""]
+            "imageUrl": ""]
         
         return result
     }

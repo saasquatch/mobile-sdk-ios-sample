@@ -17,7 +17,7 @@ class WelcomeViewController: UIViewController {
     @IBOutlet var rewardLabel: UILabel!
     @IBOutlet var claimButton: UIButton!
     let user = User.sharedUser
-    let tenant = "SaaS"
+    let tenant = "acunqvcfij2l4"
     
     override func viewDidLoad() {
         super.viewDidLoad()

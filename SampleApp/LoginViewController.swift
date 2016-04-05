@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
     let user = User.sharedUser
-    let tenant = "SaaS"
+    let tenant = "acunqvcfij2l4"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +44,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if (email == "bob" && password == "bob") {
             
             // Get Bob's info
-            let userId = "123456"
-            let accountId = "123456"
+            let userId = "876343"
+            let accountId = "613611"
             let secret = "038tr0810t8h1028th108102085180"
             
             // Lookup Bob with referral saasquatch
@@ -77,7 +77,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
                     
                     // Bob has a reward he has not claimed
-                    self.user.addReward(Reward(code: "BOBTESTERSON", reward: "$20 off your next SaaS"))
+                    self.user.addReward(Reward(code: "BILLTESTERSON", reward: "$20 off your next SaaS"))
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         // Segue on main thread after user login
