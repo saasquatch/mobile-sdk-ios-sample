@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SampleApp/SignupViewController.swift"
-            timestampString = "481566444.485453"
+            timestampString = "481573119.899247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "signup(_:)"
             landmarkType = "5">
          </BreakpointContent>

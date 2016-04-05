@@ -152,6 +152,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         // Give user the new reward
                         self.user.addReward(Reward(code: code, reward: rewardString))
                         
+                        // Apply the reward to their account
+                        Saasquatch.applyReferralCode(referralCode!, forTenant: self.tenant, toUserID: userId, toAccountID: accountId, withSecret: secret)
+                        
                         // Lookup the person that referred user
                         Saasquatch.userByReferralCode(referralCode!, forTenant: self.tenant, withSecret: secret,
                             completionHandler: {(userInfo: AnyObject?, error: NSError?) in

@@ -54,9 +54,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
                     if error != nil {
                         // Show an alert describing the error
-                        let alert = UIAlertController(title: "Login error", message: "Failed to login. Please try again", preferredStyle: .Alert)
                         dispatch_async(dispatch_get_main_queue(), {
-                            self.presentViewController(alert, animated: true, completion: nil)
+                            self.showErrorAlert("Login error", message: "Failed to login. Please try again.")
                         })
                         return
                     }
@@ -66,9 +65,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         let firstName = userInfo!["firstName"] as? String,
                         let lastName = userInfo!["lastName"] as? String,
                         let referralCode = userInfo!["referralCode"] as? String else {
-                            let alert = UIAlertController(title: "Login error", message: "Failed to login. Please try again", preferredStyle: .Alert)
                             dispatch_async(dispatch_get_main_queue(), {
-                                self.presentViewController(alert, animated: true, completion: nil)
+                                self.showErrorAlert("Login error", message: "Failed to login. Please try again.")
                             })
                             return
                     }
@@ -76,18 +74,94 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     // Login Bob
                     self.user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
                     
-                    // Bob has a reward he has not claimed
-                    self.user.addReward(Reward(code: "BILLTESTERSON", reward: "$20 off your next SaaS"))
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        // Segue on main thread after user login
-                        self.performSegueWithIdentifier("loginsegue", sender: sender)
+                    // Validate Bob's referral code and get his reward
+                    Saasquatch.validateReferralCode(referralCode, forTenant: self.tenant, withSecret: secret,
+                        completionHandler: {(userInfo: AnyObject?, error: NSError?) in
+                        
+                            if error != nil {
+                                var title: String
+                                var message: String
+                                if error!.code == 401 {
+                                    // The secret was not the same as registered
+                                    title = "Login Error"
+                                    message = error!.localizedDescription
+                                } else if error!.code == 404 {
+                                    // The referral code was not found
+                                    title = "Invalid Referral Code"
+                                    message = "Please check your code and try again."
+                                } else {
+                                    title = "Unknown error"
+                                    message = error!.localizedDescription
+                                }
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.showErrorAlert(title, message: message)
+                                })
+                                return
+                            }
+                            
+                            // Parse the returned context
+                            guard let code = userInfo!["code"] as? String,
+                                let reward = userInfo!["reward"] as? [String: AnyObject],
+                                let type = reward["type"] as? String else {
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                                    })
+                                    return
+                            }
+                            
+                            // Parse the reward
+                            var rewardString: String
+                            if type == "PCT_DISCOUNT" {
+                                guard let percent = reward["discountPercent"] as? Int else {
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                                    })
+                                    return
+                                }
+                                
+                                rewardString = "\(percent)% off your next SaaS"
+                                
+                            } else {
+                                guard let unit = reward["unit"] as? String else {
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                                    })
+                                    return
+                                }
+                                
+                                if type == "FEATURE" {
+                                    rewardString = "You get a \(unit)"
+                                    
+                                } else {
+                                    guard let credit = reward["credit"] as? Int else {
+                                        dispatch_async(dispatch_get_main_queue(), {
+                                            self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                                        })
+                                        return
+                                    }
+                                    
+                                    rewardString = "\(credit) \(unit) off your next SaaS"
+                                }
+                            }
+                            
+                            // Give Bob the new reward
+                            self.user.addReward(Reward(code: code, reward: rewardString))
+                            
+                            dispatch_async(dispatch_get_main_queue(), {
+                                // Segue on main thread after user login
+                                self.performSegueWithIdentifier("loginsegue", sender: sender)
+                            })
                     })
             })
             
         } else {
             self.performSegueWithIdentifier("signupsegue", sender: sender)
         }
+    }
+    
+    func showErrorAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func dismissKeyboard() {
