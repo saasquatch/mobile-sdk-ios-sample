@@ -144,7 +144,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                                 }
                             }
                             
-                            // Give Bob the new reward
+                            // Give Bob his referral reward
                             self.user.addReward(Reward(code: code, reward: rewardString))
                             
                             dispatch_async(dispatch_get_main_queue(), {
@@ -161,6 +161,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func showErrorAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     

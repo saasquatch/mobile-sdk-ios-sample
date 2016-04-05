@@ -193,11 +193,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     func createUser(firstName firstName: String, lastName: String, email: String, password: String) -> [String: AnyObject] {
-        let userId = "000003"
-        let accountId = "000003"
+        let userId = String(arc4random())
+        let accountId = String(arc4random())
         let locale = "en_US"
         let referralCode = "\(firstName.uppercaseString)\(lastName.uppercaseString)"
-        let secret = "0123456789abcd"
+        let secret = NSUUID().UUIDString
         
         user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
         
@@ -282,6 +282,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     
     func showErrorAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
