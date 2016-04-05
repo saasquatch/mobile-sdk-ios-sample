@@ -172,7 +172,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                                 
                                 // Parse the returned context
                                 guard let referrerFirstName = userInfo?["firstName"] as? String,
-                                    let referrerLastName = userInfo?["lastName"] as? String else {
+                                    let referrerLastInitial = userInfo?["lastInitial"] as? String else {
                                         dispatch_async(dispatch_get_main_queue(), {
                                             self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
                                         })
@@ -181,7 +181,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                                 
                                 dispatch_async(dispatch_get_main_queue(), {
                                     // Popup showing the referrer and reward info, closing segues to the welcome screen
-                                    self.showPopup(referredBy: referrerFirstName, lastName: referrerLastName)
+                                    self.showPopup(referredBy: referrerFirstName, lastName: referrerLastInitial)
                                 })
                         })
                 })
@@ -197,7 +197,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let accountId = String(arc4random())
         let locale = "en_US"
         let referralCode = "\(firstName.uppercaseString)\(lastName.uppercaseString)"
-        let secret = NSUUID().UUIDString
+        let secret = NSUUID().UUIDString.stringByReplacingOccurrencesOfString("-", withString: "")
         
         user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
         
