@@ -20,16 +20,18 @@ class User: NSObject {
     var email: String!
     var referralCode: String!
     var rewards: [Reward]!
+    var shareLinks: [String: String]!
     
-    func login(secret secret: String, id: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String) {
-            self.secret = secret
-            self.id = id
-            self.accountId = accountId
-            self.firstName = firstName
-            self.lastName = lastName
-            self.email = email
-            self.referralCode = referralCode
-            self.rewards = []
+    func login(secret secret: String, id: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String, shareLinks: [String: String]?) {
+        self.secret = secret
+        self.id = id
+        self.accountId = accountId
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.referralCode = referralCode
+        self.rewards = []
+        self.shareLinks = shareLinks
     }
     
     func addReward(reward: Reward) {

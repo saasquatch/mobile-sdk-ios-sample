@@ -2,19 +2,20 @@
 //  WelcomeViewController.swift
 //  SampleApp
 //
-//  Created by Brendan Crawford on 2016-03-18.
-//  Copyright © 2016 Brendan Crawford. All rights reserved.
-//
 
 import Foundation
 import UIKit
 import saasquatch
+import Social
 
 class WelcomeViewController: UIViewController {
     
     @IBOutlet var welcomeLabel: UILabel!
     @IBOutlet var rewardView: UIView!
-    @IBOutlet var rewardLabel: UILabel!
+    @IBOutlet var referralCodeLabel: UILabel!
+    @IBOutlet var facebookButton: UIButton!
+    @IBOutlet var twitterButton: UIButton!
+    
     let user = User.sharedUser
     
     override func viewDidLoad() {
@@ -27,16 +28,31 @@ class WelcomeViewController: UIViewController {
         rewardView.layer.shadowOffset = CGSizeMake(5.0, 5.0)
         rewardView.layer.shadowOpacity = 0.3
         
+        referralCodeLabel.text = user.referralCode
         welcomeLabel.text = "Welcome, \(user.firstName)"
-        if !user.rewards.isEmpty {
-            rewardLabel.text = user.rewards.first?.reward
-        } else {
-            rewardLabel.text = "You have no rewards"
-        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func share(sender: UIButton!) {
+        
+        if sender == facebookButton {
+            if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+                let facebookShare = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+                facebookShare.setInitialText("Sign up for a SaaS account and we both get 10% off our next SaaS! Use this link \(user.shareLinks["facebook"])")
+                facebookShare.addURL(NSURL(string: user.shareLinks["facebook"]!))
+                self.presentViewController(facebookShare, animated: true, completion: nil)
+            }
+        } else if sender == twitterButton {
+            if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+                let twitterShare = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+                twitterShare.setInitialText("Sign up for a SaaS account and we both get 10% off our next SaaS!")
+                twitterShare.addURL(NSURL(string: user.shareLinks["twitter"]!)!)
+                self.presentViewController(twitterShare, animated: true, completion: nil)
+            }
+        }
     }
     
 }

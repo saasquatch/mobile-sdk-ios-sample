@@ -1,10 +1,6 @@
-//
-//  LoginViewController.swift
-//  SampleApp
-//
-//  Created by Brendan Crawford on 2016-03-18.
-//  Copyright © 2016 Brendan Crawford. All rights reserved.
-//
+/*
+Cloud icon by https://www.iconfinder.com/aha-soft is licensed under http://creativecommons.org/licenses/by/3.0/
+*/
 
 import Foundation
 import UIKit
@@ -39,16 +35,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func login(sender: UIButton!) {
         let email = emailField.text
-        let password = emailField.text
+        let password = passwordField.text
         
-        if (email == "bob" && password == "bob") {
+        if (email == "email" && password == "password") {
             
-            // Get Bob's info
-            let userId = "876343"
-            let accountId = "613611"
-            let secret = "038tr0810t8h1028th108102085180"
+            // Get Claire's info
+            let userId = "10001110101"
+            let accountId = "10001110101"
+            let secret = "978-0440212560"
             
-            // Lookup Bob with referral saasquatch
+            // Lookup Claire with referral saasquatch
             Saasquatch.userForTenant(tenant, withUserID: userId, withAccountID: accountId, withSecret: secret,
                 completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                 
@@ -64,17 +60,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     guard let email = userInfo!["email"] as? String,
                         let firstName = userInfo!["firstName"] as? String,
                         let lastName = userInfo!["lastName"] as? String,
-                        let referralCode = userInfo!["referralCode"] as? String else {
+                        let referralCode = userInfo!["referralCode"] as? String,
+                        let shareLinks = userInfo!["shareLinks"] as? [String: AnyObject],
+                        let shareLink = shareLinks["shareLink"] as? String,
+                        let facebookShareLink = shareLinks["mobileFacebookShareLink"] as? String,
+                        let twitterShareLink = shareLinks["mobileTwitterShareLink"] as? String else {
                             dispatch_async(dispatch_get_main_queue(), {
-                                self.showErrorAlert("Login error", message: "Failed to login. Please try again.")
+                                self.showErrorAlert("Login Error", message: "Something went wrong in registration. Please try again.")
                             })
                             return
                     }
                     
-                    // Login Bob
-                    self.user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
+                    // Give the user their share links
+                    let shareLinksDict: [String: String] = ["shareLink": shareLink, "facebook": facebookShareLink, "twitter": twitterShareLink]
                     
-                    // Validate Bob's referral code and get his reward
+                    // Login Claire
+                    self.user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: shareLinksDict)
+                    
+                    // Validate Claire's referral code and get her reward
                     Saasquatch.validateReferralCode(referralCode, forTenant: self.tenant, withSecret: secret,
                         completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                         
@@ -144,7 +147,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                                 }
                             }
                             
-                            // Give Bob his referral reward
+                            // Give Claire her referral reward
                             self.user.addReward(Reward(code: code, reward: rewardString))
                             
                             dispatch_async(dispatch_get_main_queue(), {

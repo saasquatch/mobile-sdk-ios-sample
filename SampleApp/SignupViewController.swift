@@ -2,9 +2,6 @@
 //  SignupViewController.swift
 //  SampleApp
 //
-//  Created by Brendan Crawford on 2016-03-18.
-//  Copyright © 2016 Brendan Crawford. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -78,6 +75,21 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
+                // Parse the returned context
+                guard let shareLinks = userInfo!["shareLinks"] as? [String: AnyObject],
+                    let shareLink = shareLinks["shareLink"] as? String,
+                    let facebookShareLink = shareLinks["mobileFacebookShareLink"] as? String,
+                    let twitterShareLink = shareLinks["mobileTwitterShareLink"] as? String else {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.showErrorAlert("Registration Error", message: "Something went wrong in registration. Please try again.")
+                        })
+                        return
+                }
+                
+                // Give the user their share links
+                let shareLinksDict: [String: String] = ["shareLink": shareLink, "facebook": facebookShareLink, "twitter": twitterShareLink]
+                self.user.shareLinks = shareLinksDict
+                
                 // Validate the referral code
                 Saasquatch.validateReferralCode(referralCode!, forTenant: self.tenant, withSecret: secret,
                     completionHandler: {(userInfo: AnyObject?, error: NSError?) in
@@ -105,8 +117,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         }
                         
                         // Parse the returned context
-                        guard let code = userInfo!["code"] as? String,
-                            let reward = userInfo!["reward"] as? [String: AnyObject],
+                        guard let code = userInfo?["code"] as? String,
+                            let reward = userInfo?["reward"] as? [String: AnyObject],
                             let type = reward["type"] as? String else {
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
@@ -181,7 +193,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                                 
                                 dispatch_async(dispatch_get_main_queue(), {
                                     // Popup showing the referrer and reward info, closing segues to the welcome screen
-                                    self.showPopup(referredBy: referrerFirstName, lastName: referrerLastInitial)
+                                    self.showPopupWithReferrer(referrerFirstName, lastInitial: referrerLastInitial)
                                 })
                         })
                 })
@@ -199,7 +211,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let referralCode = "\(firstName.uppercaseString)\(lastName.uppercaseString)"
         let secret = NSUUID().UUIDString.stringByReplacingOccurrencesOfString("-", withString: "")
         
-        user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode)
+        user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: nil)
         
         let result: [String: AnyObject] =
         ["secret": secret,
@@ -259,7 +271,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         field.layer.borderWidth = 1.0
     }
     
-    func showPopup(referredBy firstName: String, lastName: String) {
+    func showPopupWithReferrer(firstName: String, lastInitial: String) {
         let darkenView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height))
         darkenView.backgroundColor = UIColor.blackColor()
         darkenView.alpha = 0.8
@@ -274,7 +286,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         alertView.rewardView.layer.shadowColor = UIColor.grayColor().CGColor
         alertView.rewardView.layer.shadowOffset = CGSizeMake(5.0, 5.0)
         alertView.rewardView.layer.shadowOpacity = 0.3
-        alertView.userLabel.text = "You've been referred by \(firstName) \(lastName)."
+        alertView.userLabel.text = "You've been referred by \(firstName) \(lastInitial)."
         alertView.rewardLabel.text = self.user.rewards.first?.reward
         alertView.closeButton.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
         self.view.addSubview(alertView)
