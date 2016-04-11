@@ -21,4 +21,4 @@ You can login using the email __"email"__ and the password __"password"__. The a
 
 ###Registration
 
-When a user signs up with **SaaS**, the app registers them with Referral SaaSquatch, so they can refer their friends to get discounts on **SaaS**. When a user signs up they can enter a referral code which the app will validate with Referral SaaSquatch, and then apply to the new user's account. The app will show them some information about who referred them, and then welcome them and show them their referral code and buttons to share.
+When a user signs up with **SaaS**, the app registers them with Referral SaaSquatch, so they can refer their friends to get discounts on **SaaS**. When a user signs up they can enter a referral code which the app will validate with Referral SaaSquatch, and then apply to the new user's account. The app will show them some information about who referred them, and then welcome them and show them their referral code and buttons to share their referral links.

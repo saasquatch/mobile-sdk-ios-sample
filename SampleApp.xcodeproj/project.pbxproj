@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F4F5DA41CB81F0C007003AE /* saasquatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4F5DA31CB81F0C007003AE /* saasquatch.framework */; };
-		1F4F5DA51CB81F13007003AE /* saasquatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4F5DA31CB81F0C007003AE /* saasquatch.framework */; };
-		1F4F5DA61CB81F13007003AE /* saasquatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4F5DA31CB81F0C007003AE /* saasquatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1F4F5DA91CBC0FEC007003AE /* saasquatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4F5DA71CBC0FE7007003AE /* saasquatch.framework */; };
+		1F4F5DAA1CBC0FEC007003AE /* saasquatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4F5DA71CBC0FE7007003AE /* saasquatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1FC576751C9C768200315955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC576741C9C768200315955 /* AppDelegate.swift */; };
 		1FC5767C1C9C768200315955 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FC5767A1C9C768200315955 /* Main.storyboard */; };
 		1FC5767E1C9C768200315955 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FC5767D1C9C768200315955 /* Assets.xcassets */; };
@@ -48,7 +47,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1F4F5DA61CB81F13007003AE /* saasquatch.framework in Embed Frameworks */,
+				1F4F5DAA1CBC0FEC007003AE /* saasquatch.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,7 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F4F5DA31CB81F0C007003AE /* saasquatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = saasquatch.framework; sourceTree = "<group>"; };
+		1F4F5DA71CBC0FE7007003AE /* saasquatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = saasquatch.framework; sourceTree = "<group>"; };
 		1FC576711C9C768200315955 /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FC576741C9C768200315955 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FC5767B1C9C768200315955 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -82,8 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F4F5DA51CB81F13007003AE /* saasquatch.framework in Frameworks */,
-				1F4F5DA41CB81F0C007003AE /* saasquatch.framework in Frameworks */,
+				1F4F5DA91CBC0FEC007003AE /* saasquatch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +133,7 @@
 				1FD5A91A1C9CCC710032CF23 /* ReferralView.xib */,
 				1FD5A91C1C9CCFC40032CF23 /* ReferralView.swift */,
 				1FC576A81C9C8B5800315955 /* WelcomeViewController.swift */,
-				1F4F5DA31CB81F0C007003AE /* saasquatch.framework */,
+				1F4F5DA71CBC0FE7007003AE /* saasquatch.framework */,
 				1FC5767D1C9C768200315955 /* Assets.xcassets */,
 				1FC5767F1C9C768200315955 /* LaunchScreen.storyboard */,
 				1FC576821C9C768200315955 /* Info.plist */,
