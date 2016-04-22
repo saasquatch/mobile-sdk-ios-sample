@@ -19,7 +19,6 @@ class User: NSObject {
     var lastName: String!
     var email: String!
     var referralCode: String!
-    var rewards: [Reward]!
     var shareLinks: [String: String]!
     
     func login(secret secret: String, id: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String, shareLinks: [String: String]?) {
@@ -30,23 +29,6 @@ class User: NSObject {
         self.lastName = lastName
         self.email = email
         self.referralCode = referralCode
-        self.rewards = []
         self.shareLinks = shareLinks
-    }
-    
-    func addReward(reward: Reward) {
-        rewards.append(reward)
-    }
-}
-
-class Reward: NSObject {
-    
-    var code: String?
-    var reward: String
-    
-    init(code: String?, reward: String) {
-        self.code = code
-        self.reward = reward
-        super.init()
     }
 }

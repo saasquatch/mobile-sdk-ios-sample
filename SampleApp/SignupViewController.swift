@@ -15,6 +15,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var passwordRepeatField: UITextField!
     @IBOutlet var referralCodeField: UITextField!
+    @IBOutlet var referralCodeReward: UILabel!
     @IBOutlet var signupButton: UIButton!
     let user = User.sharedUser
     let tenant = "acunqvcfij2l4"
@@ -33,6 +34,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         
         signupButton.layer.cornerRadius = 5
         signupButton.clipsToBounds = true
+        
+        referralCodeReward.hidden = true
         
         if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
             if let referralCode = delegate.referralCode {
@@ -90,8 +93,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 let shareLinksDict: [String: String] = ["shareLink": shareLink, "facebook": facebookShareLink, "twitter": twitterShareLink]
                 self.user.shareLinks = shareLinksDict
                 
-                // Validate the referral code
-                Saasquatch.validateReferralCode(referralCode!, forTenant: self.tenant, withSecret: secret,
+                // Apply the referral code
+                Saasquatch.applyReferralCode(referralCode!, forTenant: self.tenant, toUserID: userId, toAccountID: accountId, withSecret: secret,
                     completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                         
                         if error != nil {
@@ -117,7 +120,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         }
                         
                         // Parse the returned context
-                        guard let code = userInfo?["code"] as? String,
+                        guard let _ = userInfo?["code"] as? String,
                             let reward = userInfo?["reward"] as? [String: AnyObject],
                             let type = reward["type"] as? String else {
                                 dispatch_async(dispatch_get_main_queue(), {
@@ -161,12 +164,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                             }
                         }
                         
-                        // Give user the new reward
-                        self.user.addReward(Reward(code: code, reward: rewardString))
-                        
-                        // Apply the reward to their account
-                        Saasquatch.applyReferralCode(referralCode!, forTenant: self.tenant, toUserID: userId, toAccountID: accountId, withSecret: secret)
-                        
                         // Lookup the person that referred user
                         Saasquatch.userByReferralCode(referralCode!, forTenant: self.tenant, withSecret: secret,
                             completionHandler: {(userInfo: AnyObject?, error: NSError?) in
@@ -193,7 +190,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                                 
                                 dispatch_async(dispatch_get_main_queue(), {
                                     // Popup showing the referrer and reward info, closing segues to the welcome screen
-                                    self.showPopupWithReferrer(referrerFirstName, lastInitial: referrerLastInitial)
+                                    self.showPopupWithReferrer(referrerFirstName, lastInitial: referrerLastInitial, reward: rewardString)
                                 })
                         })
                 })
@@ -271,7 +268,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         field.layer.borderWidth = 1.0
     }
     
-    func showPopupWithReferrer(firstName: String, lastInitial: String) {
+    func showPopupWithReferrer(firstName: String, lastInitial: String, reward: String) {
         let darkenView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height))
         darkenView.backgroundColor = UIColor.blackColor()
         darkenView.alpha = 0.8
@@ -287,7 +284,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         alertView.rewardView.layer.shadowOffset = CGSizeMake(5.0, 5.0)
         alertView.rewardView.layer.shadowOpacity = 0.3
         alertView.userLabel.text = "You've been referred by \(firstName) \(lastInitial)."
-        alertView.rewardLabel.text = self.user.rewards.first?.reward
+        alertView.rewardLabel.text = reward
         alertView.closeButton.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
         self.view.addSubview(alertView)
     }
@@ -312,6 +309,93 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         if (textField == passwordField || textField == passwordRepeatField || textField == referralCodeField) {
             animateTextField(false)
         }
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        // When a user is entering their referral code, lookup the code and show validation and reward
+        if textField == referralCodeField {
+            
+            referralCodeReward.hidden = true
+            referralCodeField.rightViewMode = .Never
+            
+            if textField.text == nil {
+                return true
+            }
+            if string == "" {
+                return true
+            }
+            
+            let newText = "\(textField.text!)\(string)"
+            self.updateTextLabelsWithText(newText)
+        }
+        
+        return true
+    }
+    
+    func updateTextLabelsWithText(string: String) {
+        
+        Saasquatch.lookupReferralCode(string, forTenant: tenant, withSecret: nil, completionHandler: {(userInfo: AnyObject?, error: NSError?) in
+            
+            if (error != nil) {
+                return
+            }
+            
+            // Parse the returned userInfo
+            guard let _ = userInfo?["code"] as? String,
+                let reward = userInfo?["reward"] as? [String: AnyObject],
+                let type = reward["type"] as? String else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                    })
+                    return
+            }
+            
+            // Parse the reward
+            var rewardString: String
+            if type == "PCT_DISCOUNT" {
+                guard let percent = reward["discountPercent"] as? Int else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                    })
+                    return
+                }
+                
+                rewardString = "\(percent)% off your next SaaS"
+                
+            } else {
+                guard let unit = reward["unit"] as? String else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                    })
+                    return
+                }
+                
+                if type == "FEATURE" {
+                    rewardString = "You get a \(unit)"
+                    
+                } else {
+                    guard let credit = reward["credit"] as? Int else {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
+                        })
+                        return
+                    }
+                    
+                    rewardString = "\(credit) \(unit) off your next SaaS"
+                }
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.referralCodeReward.hidden = false
+                self.referralCodeReward.text = rewardString
+                let icon = UIImageView(frame: CGRectMake(0, 0, 30, 23))
+                icon.image = UIImage(named: "check")
+                self.referralCodeField.rightView = icon
+                self.referralCodeField.rightViewMode = .Always
+            })
+        })
+        
     }
     
     func animateTextField(up: Bool) {

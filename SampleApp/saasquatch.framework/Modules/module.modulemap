@@ -4,7 +4,3 @@ framework module saasquatch {
   export *
   module * { export * }
 }
-
-module saasquatch.Swift {
-    header "saasquatch-Swift.h"
-}

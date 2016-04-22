@@ -51,7 +51,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     if error != nil {
                         // Show an alert describing the error
                         dispatch_async(dispatch_get_main_queue(), {
-                            self.showErrorAlert("Login error", message: "Failed to login. Please try again.")
+                            self.showErrorAlert("Login error", message: error!.localizedDescription)
                         })
                         return
                     }
@@ -77,83 +77,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     // Login Claire
                     self.user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: shareLinksDict)
                     
-                    // Validate Claire's referral code and get her reward
-                    Saasquatch.validateReferralCode(referralCode, forTenant: self.tenant, withSecret: secret,
-                        completionHandler: {(userInfo: AnyObject?, error: NSError?) in
-                        
-                            if error != nil {
-                                var title: String
-                                var message: String
-                                if error!.code == 401 {
-                                    // The secret was not the same as registered
-                                    title = "Login Error"
-                                    message = error!.localizedDescription
-                                } else if error!.code == 404 {
-                                    // The referral code was not found
-                                    title = "Invalid Referral Code"
-                                    message = "Please check your code and try again."
-                                } else {
-                                    title = "Unknown error"
-                                    message = error!.localizedDescription
-                                }
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self.showErrorAlert(title, message: message)
-                                })
-                                return
-                            }
-                            
-                            // Parse the returned context
-                            guard let code = userInfo!["code"] as? String,
-                                let reward = userInfo!["reward"] as? [String: AnyObject],
-                                let type = reward["type"] as? String else {
-                                    dispatch_async(dispatch_get_main_queue(), {
-                                        self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
-                                    })
-                                    return
-                            }
-                            
-                            // Parse the reward
-                            var rewardString: String
-                            if type == "PCT_DISCOUNT" {
-                                guard let percent = reward["discountPercent"] as? Int else {
-                                    dispatch_async(dispatch_get_main_queue(), {
-                                        self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
-                                    })
-                                    return
-                                }
-                                
-                                rewardString = "\(percent)% off your next SaaS"
-                                
-                            } else {
-                                guard let unit = reward["unit"] as? String else {
-                                    dispatch_async(dispatch_get_main_queue(), {
-                                        self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
-                                    })
-                                    return
-                                }
-                                
-                                if type == "FEATURE" {
-                                    rewardString = "You get a \(unit)"
-                                    
-                                } else {
-                                    guard let credit = reward["credit"] as? Int else {
-                                        dispatch_async(dispatch_get_main_queue(), {
-                                            self.showErrorAlert("Server Error", message: "Something went wrong with your referral code.")
-                                        })
-                                        return
-                                    }
-                                    
-                                    rewardString = "\(credit) \(unit) off your next SaaS"
-                                }
-                            }
-                            
-                            // Give Claire her referral reward
-                            self.user.addReward(Reward(code: code, reward: rewardString))
-                            
-                            dispatch_async(dispatch_get_main_queue(), {
-                                // Segue on main thread after user login
-                                self.performSegueWithIdentifier("loginsegue", sender: sender)
-                            })
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        // Segue on main thread after user login
+                        self.performSegueWithIdentifier("loginsegue", sender: sender)
                     })
             })
             

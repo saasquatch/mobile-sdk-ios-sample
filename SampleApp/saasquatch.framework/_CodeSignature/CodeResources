@@ -4,13 +4,9 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/saasquatch-Swift.h</key>
-		<data>
-		taoblxbTOrmm7dPyJP4WCs36yt0=
-		</data>
 		<key>Headers/saasquatch.h</key>
 		<data>
-		xUNiuZ9vJbSt37ESZawQV/K8yOg=
+		ZVBFhpfJJ91blsicHgrdIp6HaXk=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -18,132 +14,31 @@
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		4Bfc7MW7vIfwiMjCPvvL6IIkZRE=
-		</data>
-		<key>Modules/saasquatch.swiftmodule/arm.swiftdoc</key>
-		<data>
-		xC91eH9+RPRN1LsfdxyE8OW9ccc=
-		</data>
-		<key>Modules/saasquatch.swiftmodule/arm.swiftmodule</key>
-		<data>
-		sbIBTsr7wT6Tg3eyoxJqviupsV0=
-		</data>
-		<key>Modules/saasquatch.swiftmodule/arm64.swiftdoc</key>
-		<data>
-		o0FQwBX7V+St2Pqbc8ZEQAPPcl4=
-		</data>
-		<key>Modules/saasquatch.swiftmodule/arm64.swiftmodule</key>
-		<data>
-		BZHoLeSpiJc+bEPFXONFFukUkoc=
-		</data>
-		<key>ios_sdk_screen1.png</key>
-		<data>
-		fgNEI9Ln1MvRC4wnsufjk+Q+pHM=
-		</data>
-		<key>ios_sdk_screen2.png</key>
-		<data>
-		rKrHmf/L91YF1agT0tQ3uDVMEuw=
+		KEjI09z9hvXWuwad1tTQNbGyZ+4=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/saasquatch-Swift.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			taoblxbTOrmm7dPyJP4WCs36yt0=
-			</data>
-			<key>hash2</key>
-			<data>
-			09wI4M28PSN0UfutlNgpGfHZWthlrU5KGihpBTkzNbQ=
-			</data>
-		</dict>
 		<key>Headers/saasquatch.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			xUNiuZ9vJbSt37ESZawQV/K8yOg=
+			ZVBFhpfJJ91blsicHgrdIp6HaXk=
 			</data>
 			<key>hash2</key>
 			<data>
-			/KvI1zwOjEp7bLTMvOWaIgVFXCDGUIHUzXGoY4yRKGI=
+			8zcakM04V8UFKk2VDqFYDGqIPEUZLujOEmfVwXn4Ttk=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			4Bfc7MW7vIfwiMjCPvvL6IIkZRE=
+			KEjI09z9hvXWuwad1tTQNbGyZ+4=
 			</data>
 			<key>hash2</key>
 			<data>
-			D2Qz27j2fLlrvAMt7MPM1r57Cw6y/krXzgCy/ttvXuc=
-			</data>
-		</dict>
-		<key>Modules/saasquatch.swiftmodule/arm.swiftdoc</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			xC91eH9+RPRN1LsfdxyE8OW9ccc=
-			</data>
-			<key>hash2</key>
-			<data>
-			+j/Pr9l5UUCemooWYnf2Mdu20FynwS/fOdHkyQSstqA=
-			</data>
-		</dict>
-		<key>Modules/saasquatch.swiftmodule/arm.swiftmodule</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			sbIBTsr7wT6Tg3eyoxJqviupsV0=
-			</data>
-			<key>hash2</key>
-			<data>
-			VhysHo2qx6jODwUqRlqicU2HU73YLtSx5sT4tXtZ9gQ=
-			</data>
-		</dict>
-		<key>Modules/saasquatch.swiftmodule/arm64.swiftdoc</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			o0FQwBX7V+St2Pqbc8ZEQAPPcl4=
-			</data>
-			<key>hash2</key>
-			<data>
-			kkQf5gBbNmyluTJgKHbnb7yTXXOb1xl8DmE72tMOMdM=
-			</data>
-		</dict>
-		<key>Modules/saasquatch.swiftmodule/arm64.swiftmodule</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			BZHoLeSpiJc+bEPFXONFFukUkoc=
-			</data>
-			<key>hash2</key>
-			<data>
-			k1PqblrdJMbwExlgnsHbNHjvx1D3KQppTa/455eqDmw=
-			</data>
-		</dict>
-		<key>ios_sdk_screen1.png</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			fgNEI9Ln1MvRC4wnsufjk+Q+pHM=
-			</data>
-			<key>hash2</key>
-			<data>
-			CUEYigTkXvBwDNH5xVjrsCVH8fAuubrz4shKWUyopLo=
-			</data>
-		</dict>
-		<key>ios_sdk_screen2.png</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			rKrHmf/L91YF1agT0tQ3uDVMEuw=
-			</data>
-			<key>hash2</key>
-			<data>
-			EwoNraOdXXsNzHHBAatBQSlrwGSkwWYwit2Rr7rMHD0=
+			5WRcvfGvfvAiEYJMXls6Bj/212HHM4yLlQwihYdF9vU=
 			</data>
 		</dict>
 	</dict>
