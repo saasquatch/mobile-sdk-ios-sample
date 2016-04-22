@@ -485,25 +485,22 @@ off your SaaS!</string>
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfU-y7-DrG">
-                                <rect key="frame" x="16" y="20" width="288" height="460"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2PJ-5T-lY1">
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="rfU-y7-DrG" secondAttribute="trailing" id="76k-lx-th7"/>
-                            <constraint firstItem="WbX-4N-KO4" firstAttribute="top" secondItem="rfU-y7-DrG" secondAttribute="bottom" id="7GN-rv-jZQ"/>
-                            <constraint firstItem="rfU-y7-DrG" firstAttribute="top" secondItem="oSM-5d-aCn" secondAttribute="bottom" id="IAg-eZ-zHi"/>
-                            <constraint firstItem="rfU-y7-DrG" firstAttribute="leading" secondItem="Y5A-1B-rJy" secondAttribute="leadingMargin" id="Oye-TJ-73s"/>
+                            <constraint firstItem="2PJ-5T-lY1" firstAttribute="leading" secondItem="Y5A-1B-rJy" secondAttribute="leading" id="S6d-FZ-4IY"/>
+                            <constraint firstItem="2PJ-5T-lY1" firstAttribute="top" secondItem="oSM-5d-aCn" secondAttribute="bottom" id="SQC-AN-SrO"/>
+                            <constraint firstAttribute="trailing" secondItem="2PJ-5T-lY1" secondAttribute="trailing" id="pfQ-Dm-N4w"/>
+                            <constraint firstItem="WbX-4N-KO4" firstAttribute="top" secondItem="2PJ-5T-lY1" secondAttribute="bottom" id="qh6-kL-8Qz"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="textView" destination="rfU-y7-DrG" id="efD-OC-1CT"/>
+                        <outlet property="referralsTable" destination="2PJ-5T-lY1" id="EUM-Wy-Bwe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYd-If-a3b" userLabel="First Responder" sceneMemberID="firstResponder"/>
