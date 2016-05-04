@@ -5,6 +5,7 @@ Cloud icon by https://www.iconfinder.com/aha-soft is licensed under http://creat
 import Foundation
 import UIKit
 import saasquatch
+import JWT
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -42,10 +43,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             // Get Claire's info
             let userId = "10001110101"
             let accountId = "10001110101"
-            let secret = "978-0440212560"
+            let token = "978-0440212560"
             
             // Lookup Claire with referral saasquatch
-            Saasquatch.userForTenant(tenant, withUserID: userId, withAccountID: accountId, withSecret: secret,
+            Saasquatch.userForTenant(tenant, withUserID: userId, withAccountID: accountId, withToken: token,
                 completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                 
                     if error != nil {
@@ -75,7 +76,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let shareLinksDict: [String: String] = ["shareLink": shareLink, "facebook": facebookShareLink, "twitter": twitterShareLink]
                     
                     // Login Claire
-                    self.user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: shareLinksDict)
+                    self.user.login(token: token, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: shareLinksDict)
                     
                     
                     dispatch_async(dispatch_get_main_queue(), {

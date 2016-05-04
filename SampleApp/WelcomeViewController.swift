@@ -5,7 +5,6 @@
 
 import Foundation
 import UIKit
-import saasquatch
 import Social
 
 class WelcomeViewController: UIViewController {

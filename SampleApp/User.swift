@@ -12,7 +12,7 @@ class User: NSObject {
     
     static let sharedUser = User()
     
-    var secret: String!
+    var token: String!
     var id: String!
     var accountId: String!
     var firstName: String!
@@ -21,8 +21,8 @@ class User: NSObject {
     var referralCode: String!
     var shareLinks: [String: String]!
     
-    func login(secret secret: String, id: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String, shareLinks: [String: String]?) {
-        self.secret = secret
+    func login(token token: String, id: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String, shareLinks: [String: String]?) {
+        self.token = token
         self.id = id
         self.accountId = accountId
         self.firstName = firstName

@@ -121,10 +121,8 @@ let tenant = "acpiocfij942"
 // We register our user internally, then pass the user's information to Referral SaaSquatch
 let userId = "000001"
 let accountId = "000001"
-let secret = NSUUID().UUIDString
 
 let userInfo: [String: AnyObject] = [
-    "secret": secret,
     "id": userId,
     "accountId": accountId,
     "email": "claire@lallybroch.com",
@@ -136,14 +134,12 @@ let userInfo: [String: AnyObject] = [
 
 In this example, we assign an id of 000001 since Claire is our first user. We pass her email, first and last names, and her locale to Referral SaaSquatch. We have also assigned her a referral code so she can use it to refer new users. When a new user signs up with referral code "CLAIREFRASER" she will get the credit.
 
-**Important:** The secret is a unique string which authenticates your user. Consider this your password for accessing the user's information. It should not contain any sensitive user information. Here, I am generating UUIDs for use as secret. Remember to save the secret so you can use it later, or else you will not be able to authenticate requests.
-
 Now we can register our user with Referral SaaSquatch using this call: 
 
 ```swift
 
 // Register a user with Referral Saasquatch
-Saasquatch.registerUserForTenant(tenant, withUserID: userId, withAccountID: accountId, withUserInfo: userInfo,
+Saasquatch.registerUserForTenant(tenant, withUserID: userId, withAccountID: accountId, withToken: token, withUserInfo: userInfo,
     completionHandler: {(userInfo: AnyObject?, error: NSError?) in
 	
 	    // Code to be executed after the async call returns
@@ -184,17 +180,17 @@ completionHandler: {(userInfo: AnyObject?, error: NSError?) in
 
 ####Make the referral
 
-Once the user is registered and any useful information returned in `userInfo` has been saved away, we will make their referral with Referral SaaSquatch. We'll call `applyReferralCode` with the code our user gave us and their userId, accountId and secret. The function validates the referral code. If the code is successful the reward information will be returned in `userInfo`, or if the code cannot be applied to the account an error will be returned.
+Once the user is registered and any useful information returned in `userInfo` has been saved away, we will make their referral with Referral SaaSquatch. We'll call `applyReferralCode` with the code our user gave us and their userId, accountId and token. The function validates the referral code. If the code is successful the reward information will be returned in `userInfo`, or if the code cannot be applied to the account an error will be returned.
 
 ```swift
-Saasquatch.applyReferralCode("BOBTESTERSON", forTenant: tenant, toUserID: userId, toAccountID: accountId, withSecret: secret,
+Saasquatch.applyReferralCode("BOBTESTERSON", forTenant: tenant, toUserID: userId, toAccountID: accountId, withToken: token,
     completionHandler: {(userInfo: AnyObject?, error: NSError?) in
 
         // First, make sure there is no error
         if error != nil {
             if error!.code == 401 {
-                // The secret was not the same as registered
-                print("Bad secret")
+                // The token was invalid
+                print("Bad token")
             } else if error!.code == 404 {
                 // The referral code was not found
                 print("Bad referral code")
@@ -221,13 +217,13 @@ Saasquatch.applyReferralCode("BOBTESTERSON", forTenant: tenant, toUserID: userId
     })
 ```
 
-During your user's registration, you may want to look up a referral code they entered to check it's existance and get information about the associated reward. The call is very similar to `applyReferralCode` and returns the same reward information in `userInfo`. The tenant and referral code are the only required parameters, but if you make too many calls without a secret you may get a 401: Unauthorized response. For a complete description of the available fields, visit the [SaaSquatch docs](http://docs.referralsaasquatch.com/api/methods/#open_apply_code "Referral SaaSquatch REST API reference").
+During your user's registration, you may want to look up a referral code they entered to check it's existance and get information about the associated reward. The call is very similar to `applyReferralCode` and returns the same reward information in `userInfo`. The tenant and referral code are the only required parameters, but if you make too many calls without a token you may get a 401: Unauthorized response. For a complete description of the available fields, visit the [SaaSquatch docs](http://docs.referralsaasquatch.com/api/methods/#open_apply_code "Referral SaaSquatch REST API reference").
 
 ```swift
-Saasquatch.lookupReferralCode("BOBTESTERSON", forTenant: tenant, withSecret: secret,
+Saasquatch.lookupReferralCode("BOBTESTERSON", forTenant: tenant, withToken: token,
     completionHandler: {(userInfo: AnyObject?, error: NSError?) in
 
-        // Parse the reward as in applyReferralCode(_:forTenant:toUserID:toAccountID:withSecret:completionHandler)
+        // Parse the reward as in applyReferralCode(_:forTenant:toUserID:toAccountID:withToken:completionHandler)
 
     })
 ```
@@ -238,14 +234,14 @@ Saasquatch.lookupReferralCode("BOBTESTERSON", forTenant: tenant, withSecret: sec
 The last thing we would like to do is let our user know they have been referred successfully. Let's lookup the user that referred them so we can let our user know who they can thank. For this, we can use the `userByReferralCode` method like this:
 
 ```swift
-Saasquatch.userByReferralCode("BOBTESTERSON", forTenant: tenant, withSecret: secret,
+Saasquatch.userByReferralCode("BOBTESTERSON", forTenant: tenant, withToken: token,
     completionHandler: {(userInfo: AnyObject?, error: NSError?) in
 
         // Always check the error
         if error != nil {
             if error!.code == 401 {
-                // The secret was not the same as registered
-                print("Bad secret")
+                // The token was invalid
+                print("Bad token")
             } else if error!.code == 404 {
                 // The user associated with the referral code was not found
                 print("Not found")
@@ -273,18 +269,18 @@ Great! We registered our new user with Referral SaaSquatch and successfully made
 
 Let's add one more bit of functionality to our app to demonstrate `listReferralsForTenant`. Bob Testerson referred our new user, Claire Fraser, and we would like to show him a list of everyone he's referred (it's a lot). To do this, we call `listReferralsForTenant`.
 
-This method looks up all the referrals for us, the tenant. The other required parameter is a secret to authenticate the request. The remainder of the parameters are options for filtering this list. In this case, we want to list only the referrals where Bob is the *referrer*. We will pass in Bob's userId and accountId and parse the list returned in `userInfo`. For a description of the options for filtering, see the [SaaSquatch
+This method looks up all the referrals for us, the tenant. The other required parameter is a token to authenticate the request. The remainder of the parameters are options for filtering this list. In this case, we want to list only the referrals where Bob is the *referrer*. We will pass in Bob's userId and accountId and parse the list returned in `userInfo`. For a description of the options for filtering, see the [SaaSquatch
 docs](http://docs.referralsaasquatch.com/api/methods/#open_list_referrals "Referral SaaSquatch REST API reference").
 
 ```swift
-Saasquatch.listReferralsForTenant(tenant, withSecret: secret, forReferringAccountID: bobsAccountId, forReferringUserID: bobsUserId, beforeDateReferralPaid: nil, beforeDateReferralEnded: nil, withReferredModerationStatus: nil, withReferrerModerationStatus: nil, withLimit: nil, withOffset: nil,
+Saasquatch.listReferralsForTenant(tenant, withToken: token, forReferringAccountID: bobsAccountId, forReferringUserID: bobsUserId, beforeDateReferralPaid: nil, beforeDateReferralEnded: nil, withReferredModerationStatus: nil, withReferrerModerationStatus: nil, withLimit: nil, withOffset: nil,
     completionHandler: {(userInfo: AnyObject?, error: NSError?) in
 
         // Check the error
         if (error != nil) {
             if error!.code == 401 {
-                // The secret was not the same as registered
-                print("Bad secret")
+                // The token was invalid
+                print("Bad token")
             } else if error!.code == 404 {
                 // The tenant does not exist
                 print("Bad tenant")

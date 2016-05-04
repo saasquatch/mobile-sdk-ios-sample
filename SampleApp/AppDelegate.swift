@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import saasquatch
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {

@@ -6,6 +6,7 @@
 import Foundation
 import UIKit
 import saasquatch
+import JWT
 
 class SignupViewController: UIViewController, UITextFieldDelegate {
     
@@ -62,12 +63,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let userInfo: [String: AnyObject] = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
         guard let userId = user.id,
             let accountId = user.accountId,
-            let secret = user.secret else {
+            let token = user.token else {
                 return
         }
         
         // Register the user with Referral Saasquatch
-        Saasquatch.registerUserForTenant(tenant, withUserID: userId, withAccountID: accountId, withUserInfo: userInfo,
+        Saasquatch.registerUserForTenant(tenant, withUserID: userId, withAccountID: accountId, withToken: token, withUserInfo: userInfo,
             completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                 
                 if error != nil {
@@ -94,14 +95,14 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 self.user.shareLinks = shareLinksDict
                 
                 // Apply the referral code
-                Saasquatch.applyReferralCode(referralCode!, forTenant: self.tenant, toUserID: userId, toAccountID: accountId, withSecret: secret,
+                Saasquatch.applyReferralCode(referralCode!, forTenant: self.tenant, toUserID: userId, toAccountID: accountId, withToken: token,
                     completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                         
                         if error != nil {
                             var title: String
                             var message: String
                             if error!.code == 401 {
-                                // The secret was not the same as registered
+                                // The token was not the same as registered
                                 title = "Registration Error"
                                 message = error!.localizedDescription
                             } else if error!.code == 404 {
@@ -165,12 +166,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         }
                         
                         // Lookup the person that referred user
-                        Saasquatch.userByReferralCode(referralCode!, forTenant: self.tenant, withSecret: secret,
+                        Saasquatch.userByReferralCode(referralCode!, forTenant: self.tenant, withToken: token,
                             completionHandler: {(userInfo: AnyObject?, error: NSError?) in
                                 
                                 if error != nil {
                                     if error!.code == 401 {
-                                        // The secret was not the same as registered
+                                        // The token was not the same as registered
                                         self.showErrorAlert("Registration Error", message: error!.localizedDescription)
                                     } else if error!.code == 404 {
                                         // The user associated with the referral code was not found
@@ -206,13 +207,17 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let accountId = String(arc4random())
         let locale = "en_US"
         let referralCode = "\(firstName.uppercaseString)\(lastName.uppercaseString)"
-        let secret = NSUUID().UUIDString.stringByReplacingOccurrencesOfString("-", withString: "")
+        let token = JWT.encode(.HS256("secret")) { builder in
+            builder.issuer = "SaaS"
+            builder.issuedAt = NSDate()
+            builder["userId"] = userId
+            builder["accountId"] = accountId
+        }
         
-        user.login(secret: secret, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: nil)
+        user.login(token: token, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: nil)
         
         let result: [String: AnyObject] =
-        ["secret": secret,
-            "id": userId,
+            ["id": userId,
             "accountId": accountId,
             "email": email,
             "firstName": firstName,
@@ -335,7 +340,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     
     func updateTextLabelsWithText(string: String) {
         
-        Saasquatch.lookupReferralCode(string, forTenant: tenant, withSecret: nil, completionHandler: {(userInfo: AnyObject?, error: NSError?) in
+        Saasquatch.lookupReferralCode(string, forTenant: tenant, withToken: nil, completionHandler: {(userInfo: AnyObject?, error: NSError?) in
             
             if (error != nil) {
                 return

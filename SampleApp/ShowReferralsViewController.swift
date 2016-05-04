@@ -25,7 +25,7 @@ class ShowReferralsViewController: UIViewController, UITableViewDataSource, UITa
         referralsTable.delegate = self
         
         // List the referrals for our user
-        Saasquatch.listReferralsForTenant(tenant, withSecret: user.secret, forReferringAccountID: user.accountId, forReferringUserID: user.id, beforeDateReferralPaid: nil, beforeDateReferralEnded: nil, withReferredModerationStatus: nil, withReferrerModerationStatus: nil, withLimit: nil, withOffset: nil, completionHandler: {(userInfo: AnyObject?, error: NSError?) in
+        Saasquatch.listReferralsForTenant(tenant, withToken: user.token, forReferringAccountID: user.accountId, forReferringUserID: user.id, beforeDateReferralPaid: nil, beforeDateReferralEnded: nil, withReferredModerationStatus: nil, withReferrerModerationStatus: nil, withLimit: nil, withOffset: nil, completionHandler: {(userInfo: AnyObject?, error: NSError?) in
             
             if (error != nil) {
                 return
