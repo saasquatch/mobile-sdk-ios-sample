@@ -31,7 +31,7 @@ Open your newly created `Podfile`. Add the following to your target(s):
 
 ```ruby
 target 'SampleApp' do
-  pod 'saasquath-sdk-swift', '~> 1.0.2'
+  pod 'saasquath-sdk-swift', '~> 1.0.4'
 end
 ```
 
