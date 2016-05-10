@@ -207,14 +207,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let accountId = String(arc4random())
         let locale = "en_US"
         let referralCode = "\(firstName.uppercaseString)\(lastName.uppercaseString)"
-        let token = JWT.encode(.HS256("secret")) { builder in
-            builder.issuer = "SaaS"
-            builder.issuedAt = NSDate()
-            builder["userId"] = userId
-            builder["accountId"] = accountId
-        }
-        
-        user.login(token: token, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: nil)
         
         let result: [String: AnyObject] =
             ["id": userId,
@@ -225,6 +217,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             "locale": locale,
             "referralCode": referralCode,
             "imageUrl": ""]
+        
+        let token = JWT.encode(.HS256("LIVE_WxIp37Pbgmt9jnxDmZvVIOf13OLg0k9F")) { builder in
+            builder["sub"] = userId + "_" + accountId
+            builder["user"] = result
+        }
+        
+        user.login(token: token, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: nil)
         
         return result
     }
