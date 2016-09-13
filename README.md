@@ -19,7 +19,7 @@ If you do not have CocoaPods installed on your system, get it with:
 
 Download the zip file from this repository, unzip the file and open the folder. 
 
-Open the 'SampleApp.xcworlspace' in Xcode. 
+Open the 'SampleApp.xcworkspace' in Xcode. 
 
 Then build and run the app in the simulator. 
 
