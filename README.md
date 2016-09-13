@@ -3,17 +3,11 @@ Quickstart Guide
 
 The Referral SaaSquatch iOS SDK integrates a referral program into your iOS app. 
 
-We're going to add the SDK into our project and start using it to interface with Referral SaaSquatch.
 
-For a working demo implementation, check out our [Sample App](https://github.com/saasquatch/mobile-sdk-ios-sample "Sample App").
-
-
-Installation
+Sample App
 ------------
 
 The deployment target for this SDK is 8.0.
-
-The SDK can be installed with CocoaPods or by manually including and linking the framework.
 
 ###CocoaPods
 
@@ -21,68 +15,14 @@ If you do not have CocoaPods installed on your system, get it with:
 
 `$ sudo gem install cocoapods`
 
-To install the SDK using CocoaPods first navigate to your project directory:
+###Running the Sample App
 
-`$ cd /path/to/my/project`
+Download the zip file from this repository, unzip the file and open the folder. 
 
-Then run `$ pod init` to setup CocoaPods for your project.
+Open the 'SampleApp.xcworlspace' in Xcode. 
 
-Open your newly created `Podfile`. Add the following to your target(s):
+Then build and run the app in the simulator. 
 
-```ruby
-target 'SampleApp' do
-  pod 'saasquath-sdk-swift', '~> 1.0.4'
-end
-```
-
-Make sure you uncomment the line:
-
-`use_frameworks!`
-
-Save and close the Podfile and run `$ pod install`. The SDK will be integrated in your project. If there was no workspace one will be created. Please use the new `.xcworkspace` from now on.
-
-The SDK is now available for use. Please see [Usage](#usage) for usage instructions.
-
-###Manual Installation
-
-There are 2 steps to install the SDK in your app:
-
-* Add the SDK to your project.
-* Link the library.
-
-
-####Step 1: Add the SDK to your project
-
-Unzip the SDK and drag `saasquatch.framework` into your XCode project.
-Make sure you add it to your app targets.
-
-
-####Step 2: Link the library
-
-Select your project in the Project navigator like this:
-
-<img src="https://raw.githubusercontent.com/saasquatch/mobile-sdk-swift-cocoapod/master/ios_sdk_screen3.png"></img>
-
-Make sure to select "Copy items if needed" and add the framework to your app's target:
-
-![Add framework screenshot](https://raw.githubusercontent.com/saasquatch/mobile-sdk-swift-cocoapod/master/ios_sdk_screen4.png "Your options should look like this")
-
-Under the **General** tab scroll down to **Embedded Binaries**.
-Click the + icon and add `saasquatch.framework`.
-Make sure `saasquatch.framework` is also listed under **Linked Frameworks and Libraries**.
-
-It should look like this:
-
-![General tab screenshot](https://raw.githubusercontent.com/saasquatch/mobile-sdk-swift-cocoapod/master/ios_sdk_screen1.png "Your General tab should look like this")
-
-Next, head to the **Build Phases** tab.
-If it is not already listed under **Link Binary With Libraries** and **Embed Frameworkds**, add it now.
-
-Your **Build Phases** tab should look like this:
-
-![Build Phases tab screenshot](https://raw.githubusercontent.com/saasquatch/mobile-sdk-swift-cocoapod/master/ios_sdk_screen2.png "Your Build Phases tab should look like this")
-
-The SDK is now ready for use in your project.
 
 Usage
 ------
@@ -312,8 +252,6 @@ Saasquatch.listReferralsForTenant(tenant, withToken: token, forReferringAccountI
 ```
 
 ####Done!
-
-For a working demo implementation, check out our [Sample App](https://github.com/saasquatch/mobile-sdk-ios-sample "Sample App").
 
 For a detailed description of the `Saasquatch` class and it's public methods, please visit the [SDK Docs](http://docs.referralsaasquatch.com//mobile/ios/docs/ "API level docs").
 
