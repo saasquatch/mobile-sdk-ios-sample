@@ -1,13 +1,16 @@
 PODS:
-  - CryptoSwift (0.2.2)
-  - JSONWebToken (1.4.3):
-    - CryptoSwift (= 0.2.2)
+  - CryptoSwift (0.6.0)
+  - JSONWebToken (2.0.1):
+    - CryptoSwift (~> 0.6.0)
 
 DEPENDENCIES:
-  - JSONWebToken
+  - CryptoSwift (~> 0.6.0)
+  - JSONWebToken (~> 2.0.1)
 
 SPEC CHECKSUMS:
-  CryptoSwift: d382228d6301c09474132417878a741c2a2e68cd
-  JSONWebToken: acdab3aeedf8d44f5cf09ad469deb42c4faf3740
+  CryptoSwift: 4a599b7241b8d3b857d6e2c28867d0bd5d1aae24
+  JSONWebToken: 37f3666c459ed1a1554663a2741ac7655d488b1f
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: ded3ed1ea45d11f009e5a3a5bf79fe9362d33384
+
+COCOAPODS: 1.1.0.rc.2

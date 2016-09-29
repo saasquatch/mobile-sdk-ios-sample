@@ -38,7 +38,7 @@ class ShowReferralsViewController: UIViewController, UITableViewDataSource, UITa
             
             let referred: NSMutableArray = []
             
-            for referral in referrals {
+            for referral in (referrals as? [[String:Any]])! {
                 var referralString: NSString
                 
                 guard let referredUser = referral["referredUser"] as? NSDictionary,
@@ -48,12 +48,12 @@ class ShowReferralsViewController: UIViewController, UITableViewDataSource, UITa
                         break
                 }
                 
-                referralString = "You gave \(firstName) \(discountPercent)% off their SaaS"
-                referred.addObject(referralString)
+                referralString = "You gave \(firstName) \(discountPercent)% off their SaaS" as NSString
+                referred.add(referralString)
             }
             
             self.referralsList = referred
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.referralsTable.reloadData()
             })
             
@@ -64,16 +64,16 @@ class ShowReferralsViewController: UIViewController, UITableViewDataSource, UITa
         super.didReceiveMemoryWarning()
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         
-        cell.textLabel?.text = referralsList?.objectAtIndex(indexPath.row) as? String
+        cell.textLabel?.text = referralsList?.object(at: (indexPath as NSIndexPath).row) as? String
         
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if referralsList == nil {
             return 0

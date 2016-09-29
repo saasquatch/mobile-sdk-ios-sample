@@ -21,7 +21,7 @@ class User: NSObject {
     var referralCode: String!
     var shareLinks: [String: String]!
     
-    func login(token token: String, id: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String, shareLinks: [String: String]?) {
+    func login(token: String, id: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String, shareLinks: [String: String]?) {
         self.token = token
         self.id = id
         self.accountId = accountId

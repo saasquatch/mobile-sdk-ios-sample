@@ -18,9 +18,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dismissKeyboard", name: UIApplicationWillResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.dismissKeyboard), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
         
-        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)
         
         loginButton.layer.cornerRadius = 5
@@ -34,7 +34,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func login(sender: UIButton!) {
+    @IBAction func login(_ sender: UIButton!) {
         let email = emailField.text
         let password = passwordField.text
         
@@ -51,7 +51,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
                     if error != nil {
                         // Show an alert describing the error
-                        dispatch_async(dispatch_get_main_queue(), {
+                        DispatchQueue.main.async(execute: {
                             self.showErrorAlert("Login error", message: error!.localizedDescription)
                         })
                         return
@@ -66,7 +66,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         let shareLink = shareLinks["shareLink"] as? String,
                         let facebookShareLink = shareLinks["mobileFacebookShareLink"] as? String,
                         let twitterShareLink = shareLinks["mobileTwitterShareLink"] as? String else {
-                            dispatch_async(dispatch_get_main_queue(), {
+                            DispatchQueue.main.async(execute: {
                                 self.showErrorAlert("Login Error", message: "Something went wrong in registration. Please try again.")
                             })
                             return
@@ -79,36 +79,36 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.user.login(token: token, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: shareLinksDict)
                     
                     
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         // Segue on main thread after user login
-                        self.performSegueWithIdentifier("loginsegue", sender: sender)
+                        self.performSegue(withIdentifier: "loginsegue", sender: sender)
                     })
             })
             
         } else {
-            self.performSegueWithIdentifier("signupsegue", sender: sender)
+            self.performSegue(withIdentifier: "signupsegue", sender: sender)
         }
     }
     
-    func showErrorAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+    func showErrorAlert(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func dismissKeyboard() {
         self.view.endEditing(true)
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         animateTextField(true)
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         animateTextField(false)
     }
     
-    func animateTextField(up: Bool) {
+    func animateTextField(_ up: Bool) {
         
         let movementDistance = 160
         let movementDuration = 0.3
@@ -118,7 +118,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         UIView.beginAnimations("anim", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.setAnimationDuration(movementDuration)
-        self.view.frame = CGRectOffset(self.view.frame, 0, CGFloat(movement))
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: CGFloat(movement))
         UIView.commitAnimations()
         
     }

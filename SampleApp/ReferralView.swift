@@ -18,7 +18,7 @@ class ReferralView: UIView {
     @IBOutlet var closeButton: UIButton!
     
     class func instanceFromNib() -> UIView {
-        return UINib(nibName: "ReferralView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! UIView
+        return UINib(nibName: "ReferralView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView
     }
     
 }
