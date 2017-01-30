@@ -23,8 +23,9 @@
 		1FD5A91D1C9CCFC40032CF23 /* ReferralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5A91C1C9CCFC40032CF23 /* ReferralView.swift */; };
 		321C77078129D8FE38928C72 /* Pods_SampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF8536F38D6428D135934D6E /* Pods_SampleAppTests.framework */; };
 		5B7EB5029400CAA5ACD04E8B /* Pods_SampleAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65707CC75825AC9BDB9F3A09 /* Pods_SampleAppUITests.framework */; };
-		83FA253E1D9C39F000EDEEF2 /* saasquatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8342234B1D99DF7B00B6C76A /* saasquatch.framework */; };
-		83FA253F1D9C39F000EDEEF2 /* saasquatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8342234B1D99DF7B00B6C76A /* saasquatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		833375981E3FDA960080E1E4 /* saasquatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833375971E3FDA960080E1E4 /* saasquatch.framework */; };
+		833375991E3FDAC50080E1E4 /* saasquatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833375971E3FDA960080E1E4 /* saasquatch.framework */; };
+		8333759A1E3FDAC50080E1E4 /* saasquatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 833375971E3FDA960080E1E4 /* saasquatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +52,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				83FA253F1D9C39F000EDEEF2 /* saasquatch.framework in Embed Frameworks */,
+				8333759A1E3FDAC50080E1E4 /* saasquatch.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,7 +84,7 @@
 		65707CC75825AC9BDB9F3A09 /* Pods_SampleAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74A0F95E411B93AE5108B7B6 /* Pods-SampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SampleApp/Pods-SampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		7CA81F7EC53E8E95289E2317 /* Pods-SampleAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SampleAppUITests/Pods-SampleAppUITests.release.xcconfig"; sourceTree = "<group>"; };
-		8342234B1D99DF7B00B6C76A /* saasquatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = saasquatch.framework; sourceTree = "<group>"; };
+		833375971E3FDA960080E1E4 /* saasquatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = saasquatch.framework; sourceTree = "<group>"; };
 		8498FCDE8231C8C2134ECA83 /* Pods-SampleAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SampleAppTests/Pods-SampleAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		AF8536F38D6428D135934D6E /* Pods_SampleAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A01759AA967C91D4F8290A /* Pods_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,7 +96,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83FA253E1D9C39F000EDEEF2 /* saasquatch.framework in Frameworks */,
+				833375981E3FDA960080E1E4 /* saasquatch.framework in Frameworks */,
+				833375991E3FDAC50080E1E4 /* saasquatch.framework in Frameworks */,
 				059B5C721DB31CFE67E76E0B /* Pods_SampleApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,7 +124,7 @@
 		1FC576681C9C768200315955 = {
 			isa = PBXGroup;
 			children = (
-				8342234B1D99DF7B00B6C76A /* saasquatch.framework */,
+				833375971E3FDA960080E1E4 /* saasquatch.framework */,
 				1FC576731C9C768200315955 /* SampleApp */,
 				1FC5768A1C9C768300315955 /* SampleAppTests */,
 				1FC576951C9C768300315955 /* SampleAppUITests */,
