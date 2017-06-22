@@ -13,7 +13,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
     let user = User.sharedUser
-    let tenant = "acunqvcfij2l4"
+    
+    
+    
+    // Insert your tenant alias below
+    // ie. let tenant = "test_alqzo6fwdqqw63v4bw"
+    let tenant = "TENANT_ALIAS_HERE"
+    
+    
+    // Insert your API key below
+    /* ie.
+     let raw_token = "TEST_j0aWxsvRedKkBo5Gv1l9ispXIfsos2CsdeeIL3"
+     */
+    let raw_token = "ADD_JWT_HERE"
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,66 +41,47 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         emailField.delegate = self
         passwordField.delegate = self
+        
+        
+        // Creating a test user
+         let userInfo: [String: AnyObject] = createUser(firstName: "saasquatch", lastName: "ios", email: "test@referralsaasquatch.com")
+        
+        Saasquatch.registerUserForTenant(user.tenant, withUserID: user.id, withAccountID: user.accountId, withToken: user.token, withUserInfo: userInfo as AnyObject,
+                                         completionHandler: {(userInfo: AnyObject?, error: NSError?) in
+                                            
+                                            if error != nil {
+                                                // Show an alert describing the error
+                                                DispatchQueue.main.async(execute: {
+                                                    self.showErrorAlert("Registration Error", message: error!.localizedDescription)
+                                                })
+                                                return
+                                            }
+                                            
+                                            // Parse the returned context
+                                            guard let shareLinks = userInfo!["shareLinks"] as? [String: AnyObject],
+                                                let shareLink = shareLinks["shareLink"] as? String,
+                                                let facebookShareLink = shareLinks["mobileFacebookShareLink"] as? String,
+                                                let twitterShareLink = shareLinks["mobileTwitterShareLink"] as? String else {
+                                                    DispatchQueue.main.async(execute: {
+                                                        self.showErrorAlert("Registration Error", message: "Something went wrong in registration. Please try again.")
+                                                    })
+                                                    return
+                                            }
+                                            
+                                            // Give the user their share links
+                                            let shareLinksDict: [String: String] = ["shareLink": shareLink, "facebook": facebookShareLink, "twitter": twitterShareLink]
+                                            self.user.shareLinks = shareLinksDict
+        })
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    
     @IBAction func login(_ sender: UIButton!) {
-        let email = emailField.text
-        let password = passwordField.text
-        
-        if (email == "email" && password == "password") {
-            
-            // Get Claire's info
-            let userId = "10001110101"
-            let accountId = "10001110101"
-            let token = "978-0440212560"
-            
-            // Lookup Claire with referral saasquatch
-            Saasquatch.userForTenant(tenant, withUserID: userId, withAccountID: accountId, withToken: token,
-                completionHandler: {(userInfo: AnyObject?, error: NSError?) in
-                
-                    if error != nil {
-                        // Show an alert describing the error
-                        DispatchQueue.main.async(execute: {
-                            self.showErrorAlert("Login error", message: error!.localizedDescription)
-                        })
-                        return
-                    }
-                    
-                    // Parse the returned context
-                    guard let email = userInfo!["email"] as? String,
-                        let firstName = userInfo!["firstName"] as? String,
-                        let lastName = userInfo!["lastName"] as? String,
-                        let referralCode = userInfo!["referralCode"] as? String,
-                        let shareLinks = userInfo!["shareLinks"] as? [String: AnyObject],
-                        let shareLink = shareLinks["shareLink"] as? String,
-                        let facebookShareLink = shareLinks["mobileFacebookShareLink"] as? String,
-                        let twitterShareLink = shareLinks["mobileTwitterShareLink"] as? String else {
-                            DispatchQueue.main.async(execute: {
-                                self.showErrorAlert("Login Error", message: "Something went wrong in registration. Please try again.")
-                            })
-                            return
-                    }
-                    
-                    // Give the user their share links
-                    let shareLinksDict: [String: String] = ["shareLink": shareLink, "facebook": facebookShareLink, "twitter": twitterShareLink]
-                    
-                    // Login Claire
-                    self.user.login(token: token, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, shareLinks: shareLinksDict)
-                    
-                    
-                    DispatchQueue.main.async(execute: {
-                        // Segue on main thread after user login
-                        self.performSegue(withIdentifier: "loginsegue", sender: sender)
-                    })
-            })
-            
-        } else {
-            self.performSegue(withIdentifier: "signupsegue", sender: sender)
-        }
+        self.performSegue(withIdentifier: "signupsegue", sender: sender)
     }
     
     func showErrorAlert(_ title: String, message: String) {
@@ -122,5 +116,50 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         UIView.commitAnimations()
         
     }
+    
+    
+    func createUser(firstName: String, lastName: String, email: String) -> [String: AnyObject] {
+        let userId = String(arc4random())
+        let accountId = String(arc4random())
+        let locale = "en_US"
+        let referralCode = "\(firstName.uppercased())\(lastName.uppercased())"
+        
+        let result: [String: AnyObject] =
+            ["id": userId as AnyObject,
+             "accountId": accountId as AnyObject,
+             "email": email as AnyObject,
+             "firstName": firstName as AnyObject,
+             "lastName": lastName as AnyObject,
+             "locale": locale as AnyObject,
+             "referralCode": referralCode as AnyObject,
+             "imageUrl": "" as AnyObject]
+        
+        
+        let token = JWT.encode(.hs256(self.raw_token.data(using: .utf8)!)) { builder in
+            builder["sub"] = userId + "_" + accountId
+            builder["user"] = result
+        }
+        
+        
+        // Uncomment to create with Anonymous User. You must also remove the token section and raw token section above.
+        /*
+         let token: String?
+         token = nil
+         */
+         
+        
+        
+        user.login(token: token, token_raw: user.token_raw, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, tenant: self.tenant ,shareLinks: nil)
+        
+        
+        return result
+    }
+    
+    
+    
+    
+    
+    
+    
     
 }

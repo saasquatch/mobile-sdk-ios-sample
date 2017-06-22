@@ -1,16 +1,19 @@
 PODS:
-  - CryptoSwift (0.6.0)
-  - JSONWebToken (2.0.1):
-    - CryptoSwift (~> 0.6.0)
+  - CryptoSwift (0.6.9)
+  - JSONWebToken (2.0.2):
+    - CryptoSwift (~> 0.6.1)
+  - saasquatch-sdk-swift (1.1.1)
 
 DEPENDENCIES:
   - CryptoSwift (~> 0.6.0)
   - JSONWebToken (~> 2.0.1)
+  - saasquatch-sdk-swift (~> 1.1)
 
 SPEC CHECKSUMS:
-  CryptoSwift: 4a599b7241b8d3b857d6e2c28867d0bd5d1aae24
-  JSONWebToken: 37f3666c459ed1a1554663a2741ac7655d488b1f
+  CryptoSwift: a22f6ba238e9ce4d26ee7bf45b9ed82e7122d4a0
+  JSONWebToken: ca86f02eeb3d1f58ba5197ec2cd53c7de915ecc1
+  saasquatch-sdk-swift: ac19aa13845b0f6b017c865a8c40aa1f00543d15
 
-PODFILE CHECKSUM: ded3ed1ea45d11f009e5a3a5bf79fe9362d33384
+PODFILE CHECKSUM: a9ba51d589d90305c82438d471e9edc8cc47019a
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1

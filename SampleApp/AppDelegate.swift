@@ -3,7 +3,7 @@
 //  SampleApp
 //
 //  Created by Brendan Crawford on 2016-03-18.
-//  Copyright © 2016 Brendan Crawford. All rights reserved.
+//  Updated by Trevor Lee on 2017-06-21.
 //
 
 import UIKit

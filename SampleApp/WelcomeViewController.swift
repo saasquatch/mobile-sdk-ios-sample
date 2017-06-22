@@ -1,6 +1,10 @@
 //
-//  WelcomeViewController.swift
+//  WelcomeViewController
 //  SampleApp
+//
+//  Created by Brendan Crawford on 2016-03-18.
+//  Copyright © 2016 Brendan Crawford. All rights reserved.
+//  Updated by Trevor Lee on 2017-03-21
 //
 
 import Foundation
@@ -28,12 +32,14 @@ class WelcomeViewController: UIViewController {
         rewardView.layer.shadowOpacity = 0.3
         
         referralCodeLabel.text = user.referralCode
-        welcomeLabel.text = "Welcome, \(user.firstName)"
+        welcomeLabel.text = "Welcome, \(user.firstName!)"
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
     
     @IBAction func share(_ sender: UIButton!) {
         

@@ -1,3 +1,0 @@
-framework module saasquatch {
-    header "saasquatch-Swift.h"
-}

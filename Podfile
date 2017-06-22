@@ -6,6 +6,8 @@ use_frameworks!
 target 'SampleApp' do
     pod 'JSONWebToken', '~> 2.0.1'
     pod 'CryptoSwift', '~>0.6.0'
+    pod 'saasquatch-sdk-swift', '~> 1.1'
+
 end
 
 target 'SampleAppTests' do
@@ -15,4 +17,3 @@ end
 target 'SampleAppUITests' do
 
 end
-
