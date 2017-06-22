@@ -36,8 +36,8 @@ With your Tenant ID and API key set, you are ready to run the app. The SaaSquatc
 
 These steps describe how to use the app as a first time user.
 
-**Step 1:** Open SampleApp.xcworkspace in Xcode.
-**Step 2:** Clean and Build the project (Product -> Clean, Product -> Build).
+**Step 1:** Open SampleApp.xcworkspace in Xcode. 
+**Step 2:** Clean and Build the project (Product -> Clean, Product -> Build). 
 **Step 3:** Run the app. You will see the login page. A default test user named "saasquatch ios" has been created.  
 **Step 4:** Navigate to the sign up page by clicking the "sign up" link at the bottom of the login page.  
 **Step 5:** Enter your info, being sure to use the referral code `saasquatchios`.  
