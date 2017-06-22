@@ -27,6 +27,7 @@ Your API key will need to be added to the following file:
 * LoginActivity.java
 
 The place in the Java file you need to add your Tenant ID and API key is marked with `"TENANT_ALIAS_HERE"` and `"ADD_JWT_HERE"`.  
+
 The Java files are located in **app/src/main/java/com/referralsaasquatch/sampleapp**
 
 Walkthrough
@@ -36,12 +37,12 @@ With your Tenant ID and API key set, you are ready to run the app. The SaaSquatc
 
 These steps describe how to use the app as a first time user.
 
-**Step 1:** Open SampleApp.xcworkspace in Xcode. 
-**Step 2:** Clean and Build the project (Product -> Clean, Product -> Build). 
+**Step 1:** Open `SampleApp.xcworkspace` in Xcode.  
+**Step 2:** Clean and Build the project (Product -> Clean, Product -> Build).   
 **Step 3:** Run the app. You will see the login page. A default test user named "saasquatch ios" has been created.  
 **Step 4:** Navigate to the sign up page by clicking the "sign up" link at the bottom of the login page.  
 **Step 5:** Enter your info, being sure to use the referral code `saasquatchios`.  
-**Step 6:** With a successful signed up, you will be redirected to the welcome page.  
+**Step 6:** With a successful sign up, you will be redirected to the welcome page.  
 **Step 7:** From the welcome page, you can click the labeled buttons to be redirected to the corresponding pages.   
 For example, the "Edit Info" button will redirect you to a page where you can edit the first name, last name, and email of your registered user.         
 
