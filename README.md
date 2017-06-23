@@ -21,14 +21,14 @@ Sample App Demonstrates:
 Setup
 -----
 Your Tenant ID will need to be added to the following file:
-* LoginActivity.java
+* LoginViewController.swift
 
 Your API key will need to be added to the following file:
-* LoginActivity.java
+* LoginViewController.swift
 
-The place in the Java file you need to add your Tenant ID and API key is marked with `"TENANT_ALIAS_HERE"` and `"ADD_JWT_HERE"`.  
+The place in the Swift file you need to add your Tenant ID and API key is marked with `"TENANT_ALIAS_HERE"` and `"ADD_JWT_HERE"`.  
 
-The Java files are located in **app/src/main/java/com/referralsaasquatch/sampleapp**
+The Swift files are located in the folder called **SampleApp**. This file can be edited when you open the SampleApp.xcworkspace.
 
 Walkthrough
 -----------
