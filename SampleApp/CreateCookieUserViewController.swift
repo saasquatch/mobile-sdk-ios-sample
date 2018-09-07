@@ -106,7 +106,7 @@ class CreateCookieViewController: UIViewController, UITextFieldDelegate {
     
 
     // Transition to the next view
-    func next() {
+    @objc func next() {
         self.performSegue(withIdentifier: "cookieseg", sender: self)
     }
     
@@ -224,7 +224,7 @@ class CreateCookieViewController: UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
     

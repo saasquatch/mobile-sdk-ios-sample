@@ -111,7 +111,7 @@ class UpdateUserViewController: UIViewController, UITextFieldDelegate {
     }
     
     // Transitions to the next view
-    func next() {
+    @objc func next() {
         self.performSegue(withIdentifier: "updateseg", sender: self)
     }
 
@@ -189,7 +189,7 @@ class UpdateUserViewController: UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
     

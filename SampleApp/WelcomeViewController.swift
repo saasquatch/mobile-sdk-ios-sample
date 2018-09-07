@@ -46,7 +46,7 @@ class WelcomeViewController: UIViewController {
         if sender == facebookButton {
             if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeFacebook) {
                 let facebookShare = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-                facebookShare?.setInitialText("Sign up for a SaaS account and we both get 10% off our next SaaS! Use this link \(user.shareLinks["facebook"])")
+                facebookShare?.setInitialText("Sign up for a SaaS account and we both get 10% off our next SaaS! Use this link \(user.shareLinks["facebook"] ?? "")")
                 facebookShare?.add(URL(string: user.shareLinks["facebook"]!))
                 self.present(facebookShare!, animated: true, completion: nil)
             }

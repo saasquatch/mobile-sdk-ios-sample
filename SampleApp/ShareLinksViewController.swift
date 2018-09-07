@@ -107,7 +107,7 @@ class ShareLinksViewController: UIViewController, UITextFieldDelegate, UIPickerV
 
     
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
     

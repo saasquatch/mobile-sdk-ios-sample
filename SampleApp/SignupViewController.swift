@@ -207,7 +207,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    func next() {
+    @objc func next() {
         self.performSegue(withIdentifier: "signupsegue", sender: self)
     }
     
@@ -323,7 +323,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
     
