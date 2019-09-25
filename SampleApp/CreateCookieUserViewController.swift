@@ -148,7 +148,7 @@ class CreateCookieViewController: UIViewController, UITextFieldDelegate {
          */
         
         
-        user.login(token: token, token_raw: user.token_raw, id: user.id, accountId: user.accountId, firstName: user.firstName, lastName: user.lastName, email: user.lastName, referralCode: user.referralCode, tenant: user.tenant, shareLinks: nil)
+        user.login(token: token, token_raw: raw_token, id: user.id, accountId: user.accountId, firstName: user.firstName, lastName: user.lastName, email: user.lastName, referralCode: user.referralCode, tenant: user.tenant, shareLinks: nil)
         
         return result
     }

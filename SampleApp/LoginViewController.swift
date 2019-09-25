@@ -149,7 +149,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
          
         
         
-        user.login(token: token, token_raw: user.token_raw, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, tenant: self.tenant ,shareLinks: nil)
+        user.login(token: token, token_raw: self.raw_token, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, tenant: self.tenant ,shareLinks: nil)
         
         
         return result
