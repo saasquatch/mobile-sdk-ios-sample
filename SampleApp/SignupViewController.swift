@@ -29,7 +29,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SignupViewController.dismissKeyboard), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SignupViewController.dismissKeyboard), name: UIApplication.willResignActiveNotification, object: nil)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(SignupViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)

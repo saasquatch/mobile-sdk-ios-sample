@@ -29,7 +29,7 @@ class CreateCookieViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(CreateCookieViewController.dismissKeyboard), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CreateCookieViewController.dismissKeyboard), name: UIApplication.willResignActiveNotification, object: nil)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(CreateCookieViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)

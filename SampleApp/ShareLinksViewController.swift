@@ -58,7 +58,7 @@ class ShareLinksViewController: UIViewController, UITextFieldDelegate, UIPickerV
         
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ShareLinksViewController.dismissKeyboard), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ShareLinksViewController.dismissKeyboard), name: UIApplication.willResignActiveNotification, object: nil)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(ShareLinksViewController.dismissKeyboard))
         self.view.addGestureRecognizer(tap)

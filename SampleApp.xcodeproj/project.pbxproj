@@ -279,16 +279,16 @@
 					1FC576701C9C768200315955 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = SETP6QC6E8;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1100;
 					};
 					1FC576861C9C768200315955 = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1100;
 						TestTargetID = 1FC576701C9C768200315955;
 					};
 					1FC576911C9C768300315955 = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1100;
 						TestTargetID = 1FC576701C9C768200315955;
 					};
 				};
@@ -298,6 +298,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -402,7 +403,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SampleApp/Pods-SampleApp-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SampleApp/Pods-SampleApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/JSONWebToken/JWT.framework",
 				"${BUILT_PRODUCTS_DIR}/saasquatch-sdk-swift/saasquatch.framework",
 			);
@@ -413,7 +414,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SampleApp/Pods-SampleApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SampleApp/Pods-SampleApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -601,7 +602,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.referralsaasquatch.sampleapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64 i386 x86_64";
 			};
@@ -627,7 +628,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.referralsaasquatch.sampleapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64 i386 x86_64";
 			};
@@ -643,7 +644,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.referralsaasquatch.SampleAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SampleApp.app/SampleApp";
 			};
 			name = Debug;
@@ -658,7 +659,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.referralsaasquatch.SampleAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SampleApp.app/SampleApp";
 			};
 			name = Release;
@@ -672,7 +673,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.referralsaasquatch.SampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = SampleApp;
 				USES_XCTRUNNER = YES;
 			};
@@ -687,7 +688,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.referralsaasquatch.SampleAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = SampleApp;
 				USES_XCTRUNNER = YES;
 			};
