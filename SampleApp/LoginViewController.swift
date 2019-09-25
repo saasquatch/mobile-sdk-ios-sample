@@ -81,7 +81,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func login(_ sender: UIButton!) {
-        self.performSegue(withIdentifier: "signupsegue", sender: sender)
+        self.performSegue(withIdentifier: "loginsegue", sender: sender)
     }
     
     func showErrorAlert(_ title: String, message: String) {
