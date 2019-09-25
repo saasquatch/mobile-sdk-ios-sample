@@ -142,7 +142,7 @@ class ShareLinksViewController: UIViewController, UITextFieldDelegate, UIPickerV
                 return
             }
             
-            var engagementMediumKeys = Array(shareLinks.keys) 
+            let engagementMediumKeys = Array(shareLinks.keys) 
             
             for (keys) in engagementMediumKeys {
                 print(keys)
@@ -161,7 +161,7 @@ class ShareLinksViewController: UIViewController, UITextFieldDelegate, UIPickerV
             
             for(value) in engagementMediumKeys {
                 for (value2) in shareMedium {
-                    var link = shareLinks[value] as? [String: String]
+                    let link = shareLinks[value] as? [String: String]
                     let links = link![value2]
                     print(value)
                     print(value2)
