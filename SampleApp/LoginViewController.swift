@@ -5,7 +5,8 @@ Cloud icon by https://www.iconfinder.com/aha-soft is licensed under http://creat
 import Foundation
 import UIKit
 import saasquatch
-import JWT
+import SwiftJWT
+import SwiftyJSON
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -18,14 +19,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // Insert your tenant alias below
     // ie. let tenant = "test_alqzo6fwdqqw63v4bw"
-    let tenant = "TENANT_ALIAS_HERE"
+    let tenant = "test_aqvgb7n9s5uqz"
     
     
     // Insert your API key below
     /* ie.
      let raw_token = "TEST_j0aWxsvRedKkBo5Gv1l9ispXIfsos2CsdeeIL3"
      */
-    let raw_token = "ADD_JWT_HERE"
+    let raw_token = "TEST_MWd1NE67YCQQ23Iz3FZh33I7mzZDbWWz"
 
     
     override func viewDidLoad() {
@@ -44,7 +45,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         
         // Creating a test user
-         let userInfo: [String: AnyObject] = createUser(firstName: "saasquatch", lastName: "ios", email: "test@referralsaasquatch.com")
+         let userInfo: JSON = createUser(firstName: "saasquatch", lastName: "ios", email: "test@referralsaasquatch.com")
         
         Saasquatch.registerUserForTenant(user.tenant, withUserID: user.id, withAccountID: user.accountId, withToken: user.token, withUserInfo: userInfo as AnyObject,
                                          completionHandler: {(userInfo: AnyObject?, error: NSError?) in
@@ -118,13 +119,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    func createUser(firstName: String, lastName: String, email: String) -> [String: AnyObject] {
+    func createUser(firstName: String, lastName: String, email: String) -> JSON {
         let userId = String(arc4random())
         let accountId = String(arc4random())
         let locale = "en_US"
         let referralCode = "\(firstName.uppercased())\(lastName.uppercased())"
         
-        let result: [String: AnyObject] =
+        let result: JSON =
             ["id": userId as AnyObject,
              "accountId": accountId as AnyObject,
              "email": email as AnyObject,
@@ -134,11 +135,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
              "referralCode": referralCode as AnyObject,
              "imageUrl": "" as AnyObject]
         
+        let raw_token = self.raw_token
+        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: result, user: user, anonymous: false)
         
-        let token = JWT.encode(.hs256(self.raw_token.data(using: .utf8)!)) { builder in
-            builder["sub"] = userId + "_" + accountId
-            builder["user"] = result
-        }
         
         
         // Uncomment to create with Anonymous User. You must also remove the token section and raw token section above.
@@ -154,12 +153,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         return result
     }
-    
-    
-    
-    
-    
-    
-    
     
 }

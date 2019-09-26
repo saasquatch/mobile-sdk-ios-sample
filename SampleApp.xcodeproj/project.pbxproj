@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0350E5B5233D715F00534ADA /* swiftJWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350E5B4233D715F00534ADA /* swiftJWT.swift */; };
+		0350E5B5233D715F00534ADA /* TokenGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350E5B4233D715F00534ADA /* TokenGenerator.swift */; };
 		036E9957022CEA3FD10B3D7C /* Pods_SampleAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9C0DB51F709199AB9FED40 /* Pods_SampleAppTests.framework */; };
 		1F00D1D11CC95AB6003F43F3 /* ShowReferralsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F00D1D01CC95AB6003F43F3 /* ShowReferralsViewController.swift */; };
 		1FC576751C9C768200315955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC576741C9C768200315955 /* AppDelegate.swift */; };
@@ -60,7 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0350E5B4233D715F00534ADA /* swiftJWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftJWT.swift; sourceTree = "<group>"; };
+		0350E5B4233D715F00534ADA /* TokenGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenGenerator.swift; sourceTree = "<group>"; };
 		1F00D1D01CC95AB6003F43F3 /* ShowReferralsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowReferralsViewController.swift; sourceTree = "<group>"; };
 		1FC576711C9C768200315955 /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FC576741C9C768200315955 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				1FC576741C9C768200315955 /* AppDelegate.swift */,
-				0350E5B4233D715F00534ADA /* swiftJWT.swift */,
+				0350E5B4233D715F00534ADA /* TokenGenerator.swift */,
 				A4539C6D1ED292C700EB59D9 /* Main.storyboard */,
 				A4539C6B1ED27B2D00EB59D9 /* UpdateUserViewController.swift */,
 				1F00D1D01CC95AB6003F43F3 /* ShowReferralsViewController.swift */,
@@ -440,7 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0350E5B5233D715F00534ADA /* swiftJWT.swift in Sources */,
+				0350E5B5233D715F00534ADA /* TokenGenerator.swift in Sources */,
 				1FC576A71C9C8B4800315955 /* SignupViewController.swift in Sources */,
 				1FC576A91C9C8B5800315955 /* WelcomeViewController.swift in Sources */,
 				A4539C6C1ED27B2D00EB59D9 /* UpdateUserViewController.swift in Sources */,

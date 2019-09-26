@@ -9,9 +9,8 @@
 import Foundation
 import UIKit
 import saasquatch
-import JWT
-
-
+import SwiftJWT
+import SwiftyJSON
 
 
 class UpdateUserViewController: UIViewController, UITextFieldDelegate {
@@ -50,7 +49,7 @@ class UpdateUserViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        let userInfo: [String: AnyObject] = createUser(userId: userId!, accountId: accountId!, firstName: firstName!, lastName: lastName!, email: email!, referralCode: referralCode!)
+        let userInfo: JSON = createUser(with: userId!, accountId: accountId!, firstName: firstName!, lastName: lastName!, email: email!, referralCode: referralCode!)
         
         
         
@@ -120,9 +119,9 @@ class UpdateUserViewController: UIViewController, UITextFieldDelegate {
 
 
     // User information is combined
-    func createUser(userId: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String) -> [String: AnyObject] {
+    func createUser(with userId: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String) -> JSON {
         
-        let result: [String: AnyObject] =
+        let result: JSON =
             ["id": userId as AnyObject,
              "accountId": accountId as AnyObject,
              "firstName": firstName as AnyObject,
@@ -134,10 +133,7 @@ class UpdateUserViewController: UIViewController, UITextFieldDelegate {
         
         let raw_token = user.token_raw!
         
-        let token = JWT.encode(.hs256(raw_token.data(using: .utf8)!)) { builder in
-            builder["sub"] = userId + "_" + accountId
-            builder["user"] = result
-        }
+        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: result, user: user, anonymous: false)
  
         
         // Uncomment to create with Anonymous User. You must also remove the token section and raw_token section above.

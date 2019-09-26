@@ -9,8 +9,9 @@
 
 import Foundation
 import UIKit
-import JWT
+import SwiftJWT
 import saasquatch
+import SwiftyJSON
 
 
 class CreateCookieViewController: UIViewController, UITextFieldDelegate {
@@ -61,7 +62,7 @@ class CreateCookieViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        let userInfo: [String: AnyObject] = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
+        let userInfo: JSON = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
         
             let token = user.token
         
@@ -111,13 +112,13 @@ class CreateCookieViewController: UIViewController, UITextFieldDelegate {
     }
     
     // User information is combined
-    func createUser(firstName: String, lastName: String, email: String, password: String) -> [String: AnyObject] {
+    func createUser(firstName: String, lastName: String, email: String, password: String) -> JSON {
         let userId = String(arc4random())
         let accountId = String(arc4random())
         let locale = "en_US"
         let referralCode = "\(firstName.uppercased())\(lastName.uppercased())"
         
-        let result: [String: AnyObject] =
+        let result: JSON =
             ["id": userId as AnyObject,
              "accountId": accountId as AnyObject,
              "email": email as AnyObject,
@@ -131,13 +132,7 @@ class CreateCookieViewController: UIViewController, UITextFieldDelegate {
         
         let raw_token = user.token_raw!
         
-        let token = JWT.encode(.hs256(raw_token.data(using: .utf8)!)) { builder in
-            builder["sub"] = userId + "_" + accountId
-            builder["user"] = result
-            builder["allowAnonymous"] = true
-
-        }
-        
+        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: result, user: user, anonymous: true)
  
         
         

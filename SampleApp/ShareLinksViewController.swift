@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 import saasquatch
-import JWT
+import SwiftJWT
 
 class ShareLinksViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     

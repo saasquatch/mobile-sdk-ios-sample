@@ -9,7 +9,8 @@
 import Foundation
 import UIKit
 import saasquatch
-import JWT
+import SwiftJWT
+import SwiftyJSON
 
 
 class SignupViewController: UIViewController, UITextFieldDelegate {
@@ -67,7 +68,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        let userInfo: [String: AnyObject] = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
+        let userInfo: JSON = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
         guard let userId = user.id,
             let accountId = user.accountId else {
                 return
@@ -211,13 +212,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         self.performSegue(withIdentifier: "signupsegue", sender: self)
     }
     
-    func createUser(firstName: String, lastName: String, email: String, password: String) -> [String: AnyObject] {
+    func createUser(firstName: String, lastName: String, email: String, password: String) -> JSON {
         let userId = String(arc4random())
         let accountId = String(arc4random())
         let locale = "en_US"
         let referralCode = "\(firstName.uppercased())\(lastName.uppercased())"
         
-        let result: [String: AnyObject] =
+        let result: JSON =
             ["id": userId as AnyObject,
             "accountId": accountId as AnyObject,
             "email": email as AnyObject,
@@ -232,10 +233,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         
         let raw_token = user.token_raw!
         
-        let token = JWT.encode(.hs256(raw_token.data(using: .utf8)!)) { builder in
-            builder["sub"] = userId + "_" + accountId
-            builder["user"] = result
-        }
+        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: result, user: user, anonymous: false)
         
         
         // Uncomment to create with Anonymous User. You must also remove the token section and raw token section above.
