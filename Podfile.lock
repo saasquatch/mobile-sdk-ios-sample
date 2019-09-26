@@ -1,20 +1,50 @@
 PODS:
-  - JSONWebToken (2.2.0)
+  - BlueCryptor (1.0.31)
+  - BlueECC (1.2.4)
+  - BlueRSA (1.0.34)
+  - KituraContracts (1.1.2):
+    - LoggerAPI (~> 1.7)
+  - LoggerAPI (1.9.0):
+    - Logging (~> 1.1)
+  - Logging (1.1.1)
   - saasquatch-sdk-swift (2.0.0)
+  - SwiftJWT (3.5.3):
+    - BlueCryptor (~> 1.0)
+    - BlueECC (~> 1.1)
+    - BlueRSA (~> 1.0)
+    - KituraContracts (~> 1.1)
+    - LoggerAPI (~> 1.7)
+  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
-  - JSONWebToken (~> 2.2.0)
   - saasquatch-sdk-swift (~> 2.0.0)
+  - SwiftJWT (~> 3.5)
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - JSONWebToken
+  https://github.com/CocoaPods/Specs.git:
     - saasquatch-sdk-swift
+  trunk:
+    - BlueCryptor
+    - BlueECC
+    - BlueRSA
+    - KituraContracts
+    - LoggerAPI
+    - Logging
+    - SwiftJWT
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
-  JSONWebToken: 6fae32489632658d563dd6952a5c34020ea813e4
+  BlueCryptor: 38c3309c0b7532053cc69fef4bdf91c029cccc2c
+  BlueECC: 41d5f2cb54fa42ba6f2d361f720cf6a23f42b068
+  BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
+  KituraContracts: fdb9576d40d1ac737765128158bfd412705b1c3b
+  LoggerAPI: fb78461eedac5316b290f2404d88b9d614d96c57
+  Logging: c1d514914944d786e0f17a41a6431e44a88a7ec1
   saasquatch-sdk-swift: a938c5e6ceb2d6cdbd6996c43b3f1a86e5ea14a9
+  SwiftJWT: 9a47a71090cae25767078756b5810e3b630aa9a7
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: f4531f86df088f45fbc9d84867bd61b0a616af64
+PODFILE CHECKSUM: 3669032dc4d09690408b99c4d4f3d5a1555b97c8
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.8.0
