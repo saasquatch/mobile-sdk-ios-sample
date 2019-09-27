@@ -68,7 +68,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        let userInfo: JSON = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
+        let userInfo: [String: Any] = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
         guard let userId = user.id,
             let accountId = user.accountId else {
                 return
@@ -212,13 +212,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         self.performSegue(withIdentifier: "signupsegue", sender: self)
     }
     
-    func createUser(firstName: String, lastName: String, email: String, password: String) -> JSON {
+    func createUser(firstName: String, lastName: String, email: String, password: String) -> [String: Any] {
         let userId = String(arc4random())
         let accountId = String(arc4random())
         let locale = "en_US"
         let referralCode = "\(firstName.uppercased())\(lastName.uppercased())"
         
-        let result: JSON =
+        let result: [String: Any] =
             ["id": userId as AnyObject,
             "accountId": accountId as AnyObject,
             "email": email as AnyObject,
@@ -233,7 +233,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         
         let raw_token = user.token_raw!
         
-        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: result, user: user, anonymous: false)
+        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: JSON(result), user: user, anonymous: false)
         
         
         // Uncomment to create with Anonymous User. You must also remove the token section and raw token section above.

@@ -45,7 +45,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         
         // Creating a test user
-         let userInfo: JSON = createUser(firstName: "saasquatch", lastName: "ios", email: "test@referralsaasquatch.com")
+        let userInfo: [String: Any] = createUser(firstName: "saasquatch", lastName: "ios", email: "test@referralsaasquatch.com")
         
         Saasquatch.registerUserForTenant(user.tenant, withUserID: user.id, withAccountID: user.accountId, withToken: user.token, withUserInfo: userInfo as AnyObject,
                                          completionHandler: {(userInfo: AnyObject?, error: NSError?) in
@@ -119,13 +119,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    func createUser(firstName: String, lastName: String, email: String) -> JSON {
+    func createUser(firstName: String, lastName: String, email: String) -> [String: Any] {
         let userId = String(arc4random())
         let accountId = String(arc4random())
         let locale = "en_US"
         let referralCode = "\(firstName.uppercased())\(lastName.uppercased())"
         
-        let result: JSON =
+        let result: [String: Any] =
             ["id": userId as AnyObject,
              "accountId": accountId as AnyObject,
              "email": email as AnyObject,
@@ -135,8 +135,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
              "referralCode": referralCode as AnyObject,
              "imageUrl": "" as AnyObject]
         
-        let raw_token = self.raw_token
-        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: result, user: user, anonymous: false)
+        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: self.raw_token, result: JSON(result), user: user, anonymous: false)
         
         
         

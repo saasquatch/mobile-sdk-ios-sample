@@ -49,7 +49,7 @@ class UpdateUserViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        let userInfo: JSON = createUser(with: userId!, accountId: accountId!, firstName: firstName!, lastName: lastName!, email: email!, referralCode: referralCode!)
+        let userInfo: [String: Any] = createUser(with: userId!, accountId: accountId!, firstName: firstName!, lastName: lastName!, email: email!, referralCode: referralCode!)
         
         
         
@@ -119,9 +119,9 @@ class UpdateUserViewController: UIViewController, UITextFieldDelegate {
 
 
     // User information is combined
-    func createUser(with userId: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String) -> JSON {
+    func createUser(with userId: String, accountId: String, firstName: String, lastName: String, email: String, referralCode: String) -> [String: Any] {
         
-        let result: JSON =
+        let result: [String: Any] =
             ["id": userId as AnyObject,
              "accountId": accountId as AnyObject,
              "firstName": firstName as AnyObject,
@@ -133,7 +133,7 @@ class UpdateUserViewController: UIViewController, UITextFieldDelegate {
         
         let raw_token = user.token_raw!
         
-        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: result, user: user, anonymous: false)
+        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: JSON(result), user: user, anonymous: false)
  
         
         // Uncomment to create with Anonymous User. You must also remove the token section and raw_token section above.

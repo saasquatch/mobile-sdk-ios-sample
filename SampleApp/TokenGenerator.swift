@@ -18,8 +18,8 @@ class TokenGenerator {
     }
     
     static func getJWT(userId: String, accountId: String, raw_token: String, result: JSON, user: User, anonymous: Bool) -> String {
-        let raw_token = user.token_raw!
-        let claims = JWTClaims(sub: userId + "_" + accountId, user: result, allowAnonymous: true)
+        let raw_token = raw_token
+        let claims = JWTClaims(sub: userId + "_" + accountId, user: result, allowAnonymous: anonymous)
         var myJWT = JWT(claims: claims)
         
         let jwtSigner = JWTSigner.hs256(key: raw_token.data(using: .utf8)!)

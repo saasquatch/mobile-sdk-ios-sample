@@ -62,7 +62,7 @@ class CreateCookieViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        let userInfo: JSON = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
+        let userInfo = createUser(firstName: firstName!, lastName: lastName!, email: email!, password: password!)
         
             let token = user.token
         
@@ -112,13 +112,13 @@ class CreateCookieViewController: UIViewController, UITextFieldDelegate {
     }
     
     // User information is combined
-    func createUser(firstName: String, lastName: String, email: String, password: String) -> JSON {
+    func createUser(firstName: String, lastName: String, email: String, password: String) -> [String: Any] {
         let userId = String(arc4random())
         let accountId = String(arc4random())
         let locale = "en_US"
         let referralCode = "\(firstName.uppercased())\(lastName.uppercased())"
         
-        let result: JSON =
+        let result: [String: Any] =
             ["id": userId as AnyObject,
              "accountId": accountId as AnyObject,
              "email": email as AnyObject,
@@ -132,7 +132,7 @@ class CreateCookieViewController: UIViewController, UITextFieldDelegate {
         
         let raw_token = user.token_raw!
         
-        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: result, user: user, anonymous: true)
+        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: JSON(result), user: user, anonymous: true)
  
         
         
