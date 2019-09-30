@@ -129,11 +129,13 @@ class UpdateUserViewController: UIViewController, UITextFieldDelegate {
              "email": email as AnyObject,
              "referralCode": referralCode as AnyObject]
         
-        
-        
-        let raw_token = user.token_raw!
-        
-        let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: JSON(result), user: user, anonymous: false)
+        if let raw_token = user.token_raw {
+            let token = TokenGenerator.getJWT(userId: userId, accountId: accountId, raw_token: raw_token, result: JSON(result), user: user, anonymous: false)
+            
+            user.login(token: token, token_raw: user.token_raw, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, tenant: user.tenant, shareLinks: nil)
+        } else {
+            showErrorAlert("No Token Provided", message: "Please enter your tenant alias and API key in LoginViewController")
+        }
  
         
         // Uncomment to create with Anonymous User. You must also remove the token section and raw_token section above.
@@ -143,7 +145,7 @@ class UpdateUserViewController: UIViewController, UITextFieldDelegate {
         */
         
   
-        user.login(token: token, token_raw: user.token_raw, id: userId, accountId: accountId, firstName: firstName, lastName: lastName, email: email, referralCode: referralCode, tenant: user.tenant, shareLinks: nil)
+        
         
         
         return result
